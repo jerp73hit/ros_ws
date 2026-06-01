@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<sdf version="1.11">
+  <model name="milk_cup">
+    <link name="body">
+      <inertial auto="true" />
+      <collision name="collision">
+        <density>10.0</density>
+        <geometry>
+          <mesh optimization="convex_decomposition">
+            <uri>models://milk_cup/mesh.obj</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>models://milk_cup/mesh.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>
