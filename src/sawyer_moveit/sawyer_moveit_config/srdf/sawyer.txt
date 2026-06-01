@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<robot name="sawyer" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--SRDF Xacro Args-->
+  <xacro:arg name="tip_name" default="right_hand"/>
+  <xacro:arg name="electric_gripper" default="false"/>
+  <xacro:arg name="controller_box" default="true"/>
+
+  <!--Base Sawyer Collisions-->
+  <xacro:include filename="$(find sawyer_moveit_config)/srdf/sawyer_base.srdf.xacro" />
+  <xacro:sawyer_base tip_name="$(arg tip_name)"/>
+
+  <!--Controller Box Collisions-->
+  <xacro:if value="$(arg controller_box)">
+    <xacro:include filename="$(find sawyer_moveit_config)/srdf/controller_box.srdf.xacro" />
+    <xacro:controller_box/>
+  </xacro:if>
+
+  <!--Right End Effector Collisions-->
+  <xacro:if value="$(arg electric_gripper)">
+    <xacro:include filename="$(find sawyer_moveit_config)/srdf/rethink_electric_gripper.srdf.xacro" />
+    <xacro:rethink_electric_gripper side="right"/>
+  </xacro:if>
+  
+  <disable_collisions link1="right_hand" link2="right_connector_plate_base" reason="Adjacent" />
+  <disable_collisions link1="right_hand" link2="right_electric_gripper_base" reason="Adjacent" />
+  <disable_collisions link1="right_hand" link2="right_gripper_l_finger" reason="Never" />
+  <disable_collisions link1="right_hand" link2="right_gripper_r_finger" reason="Never" />
+  <disable_collisions link1="right_hand" link2="right_gripper_l_finger_tip" reason="Never" />
+  <disable_collisions link1="right_hand" link2="right_gripper_r_finger_tip" reason="Never" />
+
+  <disable_collisions link1="right_connector_plate_base" link2="right_electric_gripper_base" reason="Adjacent" />
+  <disable_collisions link1="right_connector_plate_base" link2="right_gripper_l_finger" reason="Never" />
+  <disable_collisions link1="right_connector_plate_base" link2="right_gripper_r_finger" reason="Never" />
+
+  <disable_collisions link1="right_electric_gripper_base" link2="right_gripper_l_finger" reason="Adjacent" />
+  <disable_collisions link1="right_electric_gripper_base" link2="right_gripper_r_finger" reason="Adjacent" />
+  <disable_collisions link1="right_electric_gripper_base" link2="right_gripper_l_finger_tip" reason="Never" />
+  <disable_collisions link1="right_electric_gripper_base" link2="right_gripper_r_finger_tip" reason="Never" />
+
+  <disable_collisions link1="right_gripper_l_finger" link2="right_gripper_l_finger_tip" reason="Adjacent" />
+  <disable_collisions link1="right_gripper_r_finger" link2="right_gripper_r_finger_tip" reason="Adjacent" />
+
+  <disable_collisions link1="right_gripper_l_finger" link2="right_gripper_r_finger" reason="Never" />
+  <disable_collisions link1="right_gripper_l_finger_tip" link2="right_gripper_r_finger_tip" reason="Never" />
+  <disable_collisions link1="right_gripper_l_finger" link2="right_gripper_r_finger_tip" reason="Never" />
+  <disable_collisions link1="right_gripper_r_finger" link2="right_gripper_l_finger_tip" reason="Never" />
+
+  <disable_collisions link1="head" link2="right_l0" reason="Adjacent" />
+  <disable_collisions link1="head" link2="right_l1" reason="Default" />
+  <disable_collisions link1="head" link2="right_l2" reason="Default" />
+</robot>

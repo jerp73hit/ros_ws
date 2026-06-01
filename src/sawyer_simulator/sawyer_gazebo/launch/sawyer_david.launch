@@ -1,0 +1,49 @@
+<launch>
+    <!-- 1. Sawyer Gazebo simulation with electric gripper -->
+    <include file="$(find sawyer_gazebo)/launch/sawyer_world.launch">
+        <arg name="electric_gripper" value="true"/>
+    </include>
+
+    <!-- 2. Gazebo client — opens the GUI automatically
+         delay 5s so gzserver is fully up before gzclient connects -->
+    <node pkg="gazebo_ros"
+          type="gzclient"
+          name="gzclient"
+          output="screen"
+          launch-prefix="bash -c 'sleep 5; $0 $@'"/>
+
+    <!-- 3. Unified bridge:
+             - /robot/joint_states -> /joint_states
+             - FollowJointTrajectory -> JointCommand -->
+    <node pkg="moveit_tests"
+          type="sawyer_moveit_bridge.py"
+          name="sawyer_moveit_bridge"
+          output="screen"
+          respawn="true"/>
+
+    <!-- 4. MoveIt without RViz -->
+    <include file="$(find sawyer_moveit_config)/launch/sawyer_moveit.launch">
+        <arg name="use_rviz" value="false"/>
+    </include>
+
+    <!-- 5. Send safe pose -->
+    <node pkg="moveit_tests"
+          type="send_safe_pose.py"
+          name="send_safe_pose"
+          output="screen"
+          respawn="false"/>
+
+    <!-- 6. Spawn Gazebo table, block and mustard bottle -->
+    <node pkg="moveit_tests"
+          type="spawn_pick_place_scene.py"
+          name="spawn_pick_place_scene"
+          output="screen"
+          respawn="false"/>
+
+    <!-- 7. Add objects to MoveIt Planning Scene -->
+    <node pkg="moveit_tests"
+          type="add_table_scene.py"
+          name="add_table_scene"
+          output="screen"
+          respawn="false"/>
+</launch>

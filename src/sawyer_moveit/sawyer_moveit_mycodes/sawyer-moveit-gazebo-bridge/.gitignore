@@ -1,0 +1,25 @@
+# ROS / catkin
+build/
+devel/
+install/
+log/
+.catkin_tools/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# System
+.DS_Store
+
+# Gazebo / ROS logs
+*.log
+.ros/
