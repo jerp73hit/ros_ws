@@ -65,10 +65,13 @@ def load_gazebo_models(
         orientation=Quaternion(x=0, y=0, z=0, w=1)
     ),
 ):
-    model_path = "/home/masterchief/.gazebo/models"
+    model_path = os.getenv("HOME")+"/.gazebo/models"
+
+    print(model_path)
 
     with open(os.path.join(model_path, "cafe_table", "model.sdf"), "r") as f:
         table_xml = f.read().replace("\n", "")
+        print(table_xml)
         
     with open(os.path.join(model_path, "block", "model.urdf"), "r") as f:
         block_xml = f.read().replace("\n", "")
