@@ -26,16 +26,16 @@ from typing import Optional
 
 
 # ── Paste your ground truth here (from rostopic echo /gazebo/model_states) ──
-GROUND_TRUTH = {
+GROUND_TRUTH  = {
     "mustard":            [0.512, 0.167, 0.778],
     "coke_can":           [0.650, 0.300, 0.772],
-    "bowl":               [0.850, 0.200, 0.775],
+    "bowl":               [0.853, 0.294, 0.775],
     "banana":             [0.450, 0.000, 0.800],
     "strawberry":         [0.650, 0.000, 0.790],
     "planta_maceta":      [0.850, 0.000, 0.775],
-    "esponja_lavaplatos": [0.450, -0.300, 0.775],
+    "esponja_lavaplatos": [0.445, -0.300, 0.775],
     "papas_fritas":       [0.650, -0.300, 0.775],
-    "block":              [0.553, -0.249, 0.795],
+    "block":              [0.550, -0.250, 0.795],
 }
 
 
