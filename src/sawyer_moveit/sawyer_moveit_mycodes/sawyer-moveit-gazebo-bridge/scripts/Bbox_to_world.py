@@ -380,7 +380,7 @@ if __name__ == "__main__":
     import json
 
     result = load_results_yaml(
-        "/home/david/ros_ws/src/sawyer_moveit/sawyer_moveit_mycodes/"
+        "/home/masterchief/ros_ws/src/sawyer_moveit/sawyer_moveit_mycodes/"
         "sawyer-moveit-gazebo-bridge/scripts/res.yaml")
     if isinstance(result, list):
         result = result[0]

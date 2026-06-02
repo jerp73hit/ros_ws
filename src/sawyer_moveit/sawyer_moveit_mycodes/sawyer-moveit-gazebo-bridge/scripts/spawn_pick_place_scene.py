@@ -28,15 +28,15 @@ def load_gazebo_models(
 
     # ── Row 1  (y=+0.20) ────────────────────────────────────
     # 20cm spacing between centers in X and Y
-    mustard_pose=Pose(
-        position=Point(x=0.45, y=0.20, z=0.90),
-        orientation=Quaternion(x=0, y=0, z=0, w=1)
+    bowl_pose=Pose(
+        position=Point(x=0.8, y=-0.35, z=0.90),
+        orientation=Quaternion(x=0.77, y=0, z=-0.45, w=1)
     ),
     coke_can_pose=Pose(
         position=Point(x=0.65, y=0.30, z=0.86),
         orientation=Quaternion(x=0, y=0, z=0, w=1)
     ),
-    bowl_pose=Pose(
+    mustard_pose=Pose(
         position=Point(x=0.85, y=0.20, z=0.84),
         orientation=Quaternion(x=0, y=0, z=0, w=1)
     ),
@@ -44,7 +44,7 @@ def load_gazebo_models(
     # ── Row 2  (y=0.00) ─────────────────────────────────────
     banana_pose=Pose(
         position=Point(x=0.45, y=0.00, z=0.80), # Z lowered from 0.82 to 0.80
-        orientation=Quaternion(x=0, y=0, z=0, w=1)
+        orientation=Quaternion(x=0, y=0, z=-0.25, w=1)
     ),
     strawberry_pose=Pose(
         position=Point(x=0.65, y=0.00, z=0.79), # Z lowered from 0.82 to 0.80
