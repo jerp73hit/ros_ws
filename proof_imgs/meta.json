@@ -1,0 +1,62 @@
+{
+  "capture_wall_time": 1780351066.105642,
+  "rgb_stamp": {
+    "secs": 3022,
+    "nsecs": 624000000
+  },
+  "depth_stamp": {
+    "secs": 3022,
+    "nsecs": 624000000
+  },
+  "rgb_topic": "/io/internal_camera/right_hand_camera/image_raw",
+  "depth_topic": "/io/internal_camera/right_hand_camera/depth/image_raw",
+  "image_width": 1200,
+  "image_height": 800,
+  "depth_width": 1200,
+  "depth_height": 800,
+  "depth_encoding": "32FC1",
+  "depth_stats": {
+    "valid_pixels": 960000,
+    "total_pixels": 960000,
+    "min_m": 0.9056,
+    "max_m": 2.6167,
+    "median_m": 1.324
+  },
+  "camera_info": {
+    "fx": 613.7604,
+    "fy": 613.7604,
+    "cx": 600.5,
+    "cy": 400.5,
+    "distortion_model": "plumb_bob",
+    "D": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "camera_pose": {
+    "world_frame": "world",
+    "camera_frame": "right_hand_camera",
+    "position": [
+      0.2360689250997808,
+      0.14089668177910739,
+      0.9167267469925886
+    ],
+    "quaternion": [
+      -0.6904149888085966,
+      0.6934637811588376,
+      -0.17154591415917086,
+      0.11404879124571074
+    ]
+  },
+  "files": {
+    "rgb": "rgb.png",
+    "depth_npy": "depth.npy",
+    "depth_preview": "depth_preview.png",
+    "camera_info": "camera_info.npz",
+    "camera_pose": "camera_pose.npz",
+    "meta": "meta.json"
+  }
+}
