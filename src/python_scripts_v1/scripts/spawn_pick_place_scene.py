@@ -82,23 +82,23 @@ def load_gazebo_models():
 
     # Primary target
     block_pose = make_pose(
-        x=0.55, y=-0.25, z=0.82,
+        x=0.55, y=-0.25, z=0.795,
         roll=0, pitch=0, yaw=0
     )
 
     # Row 1
     mustard_pose = make_pose(
-        x=0.45, y=0.20, z=0.80,
+        x=0.5, y=0.20, z=0.79,
         roll=0, pitch=0, yaw=0
     )
 
     coke_can_pose = make_pose(
-        x=0.65, y=0.30, z=0.86,
+        x=0.65, y=0.30, z=0.78,
         roll=0, pitch=0, yaw=0
     )
 
     bowl_pose = make_pose(
-        x=0.85, y=0.20, z=0.84,
+        x=0.85, y=0.20, z=0.78,
         roll=0, pitch=0, yaw=0
     )
 
@@ -109,23 +109,23 @@ def load_gazebo_models():
     )
 
     strawberry_pose = make_pose(
-        x=0.65, y=0.00, z=0.79,
+        x=0.65, y=0.00, z=0.78,
         roll=0, pitch=0, yaw=0
     )
 
     planta_maceta_pose = make_pose(
-        x=0.85, y=0.00, z=0.84,
+        x=0.85, y=0.00, z=0.78,
         roll=0, pitch=0, yaw=0
     )
 
     # Row 3
     esponja_lavaplatos_pose = make_pose(
-        x=0.45, y=-0.30, z=0.84,
+        x=0.45, y=-0.30, z=0.78,
         roll=0, pitch=0, yaw=0
     )
 
     papas_fritas_pose = make_pose(
-        x=0.65, y=-0.30, z=0.84,
+        x=0.65, y=-0.30, z=0.78,
         roll=0, pitch=0, yaw=0
     )
 
