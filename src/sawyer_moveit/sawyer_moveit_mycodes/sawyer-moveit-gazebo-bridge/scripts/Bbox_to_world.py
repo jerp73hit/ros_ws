@@ -74,7 +74,7 @@ DEPTH_MIN_VALID_PIXELS = 5
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  Depth sampling  (unchanged)
+#  Depth sampling 
 # ─────────────────────────────────────────────────────────────────────────────
 
 def sample_depth_in_bbox(
@@ -141,6 +141,9 @@ def bbox_to_world(
     v_max = int((cy_norm + h_norm / 2) * img_h)
     u_ctr = cx_norm * img_w
     v_ctr = cy_norm * img_h
+    # NEW: Instead of the middle of the box, target the bottom face!
+    # Moving 80% down the bounding box safely hits the base of the object
+    v_ctr_base = (cy_norm + (h_norm * 0.40)) * img_h
 
     depth_source = "size_fallback"
     z_optical    = None
@@ -334,7 +337,7 @@ def calibrate_r_fix(
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  yaml loader  (unchanged)
+#  yaml loader 
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _patch_numpy_core():
@@ -391,15 +394,21 @@ if __name__ == "__main__":
         print("depth.npy not found — using size-fallback.")
 
     snap     = load_snapshot("~/ros_ws/proof_imgs")
-    #cam_pos  = snap["cam_pos"]
-    cam_pos = [0.29673795539717385, 0.18416660580703292, 0.8792466542508928]
+    
+    # 1. Get the pure, unadulterated TF coordinates
+    cam_pos  = snap["cam_pos"]
     cam_quat = snap["cam_quat"]
-    K        = snap["K"]
 
+    print("printing cam pos and quat")
+    print(cam_pos)
+    print(cam_quat)
+    
+    # 2. Add the Gazebo pedestal height!
+    cam_pos[2] += 0.930 
+    
+    K = snap["K"]
     if depth_img is None:
         depth_img = snap["depth"]
-
-    cam_pos[2] += 0.93
 
     img_h, img_w = result.orig_shape
 
@@ -425,13 +434,13 @@ if __name__ == "__main__":
     ground_truth = {
         "mustard":            [0.512, 0.167, 0.778],
         "coke_can":           [0.650, 0.300, 0.772],
-        "bowl":               [0.850, 0.200, 0.775],
+        "bowl":               [0.853, 0.294, 0.775],
         "banana":             [0.450, 0.000, 0.800],
         "strawberry":         [0.650, 0.000, 0.790],
         "planta_maceta":      [0.850, 0.000, 0.775],
-        "esponja_lavaplatos": [0.450, -0.300, 0.775],
+        "esponja_lavaplatos": [0.445, -0.300, 0.775],
         "papas_fritas":       [0.650, -0.300, 0.775],
-        "block":              [0.553, -0.249, 0.795],
+        "block":              [0.550, -0.250, 0.795],
     }
 
     print("\n── Running R_FIX calibration ────────────────────────────────")
