@@ -1,0 +1,337 @@
+.
+├── camera_info.npz
+├── camera_pose.npz
+├── detections_world.json
+├── grep
+├── intera.sh -> src/intera_sdk/intera.sh
+├── models
+│   ├── banana
+│   │   ├── banana-1_2.sdf
+│   │   ├── banana-1_3.sdf
+│   │   ├── banana-1_4.sdf
+│   │   ├── banana.sdf
+│   │   ├── banana.urdf
+│   │   ├── meshes
+│   │   │   ├── banana.dae
+│   │   │   └── banana.stl
+│   │   └── model.config
+│   ├── block
+│   │   └── model.urdf
+│   ├── bowl
+│   │   ├── meshes
+│   │   │   └── bowl.dae
+│   │   ├── model-1_2.sdf
+│   │   ├── model-1_3.sdf
+│   │   ├── model-1_4.sdf
+│   │   ├── model.config
+│   │   └── model.sdf
+│   ├── cafe_table
+│   │   ├── materials
+│   │   │   └── textures
+│   │   ├── meshes
+│   │   │   └── cafe_table.dae
+│   │   ├── model-1_4.sdf
+│   │   ├── model.config
+│   │   └── model.sdf
+│   ├── coke_can
+│   │   ├── materials
+│   │   │   └── textures
+│   │   ├── meshes
+│   │   │   └── coke_can.dae
+│   │   ├── model-1_2.sdf
+│   │   ├── model-1_3.sdf
+│   │   ├── model-1_4.sdf
+│   │   ├── model.config
+│   │   └── model.sdf
+│   ├── esponja_lavaplatos
+│   │   ├── model.config
+│   │   └── model.sdf
+│   ├── ground_plane
+│   │   ├── model-1_2.sdf
+│   │   ├── model-1_3.sdf
+│   │   ├── model-1_4.sdf
+│   │   ├── model.config
+│   │   └── model.sdf
+│   ├── milk_cup
+│   │   ├── mesh.mtl
+│   │   ├── mesh.obj
+│   │   ├── model.config
+│   │   ├── model.sdf
+│   │   ├── thumbnails
+│   │   │   └── 1.png
+│   │   └── touxiang.jpg
+│   ├── mustard
+│   │   ├── meshes
+│   │   │   ├── nontextured.stl
+│   │   │   ├── textured.dae
+│   │   │   └── texture_map.png
+│   │   ├── model.config
+│   │   └── model.sdf
+│   ├── mustard_bottle
+│   │   ├── model.config
+│   │   ├── model copy.sdf
+│   │   ├── model.sdf
+│   │   ├── textured.dae
+│   │   ├── textured.mtl
+│   │   ├── textured.obj
+│   │   ├── texture_map.png
+│   │   └── thumbnails
+│   │       ├── 1.png
+│   │       ├── 2.png
+│   │       ├── 3.png
+│   │       ├── 4.png
+│   │       └── 5.png
+│   ├── papas_fritas
+│   │   ├── meshes
+│   │   │   ├── basket_v2.stl
+│   │   │   └── potato_block_v2.stl
+│   │   ├── model.config
+│   │   └── model.sdf
+│   ├── planta_maceta
+│   │   ├── meshes
+│   │   │   ├── planta_maceta.dae
+│   │   │   ├── planta.step
+│   │   │   └── planta.stl
+│   │   ├── model-1_4.sdf
+│   │   ├── model.config
+│   │   └── model.sdf
+│   ├── strawberry
+│   │   ├── meshes
+│   │   │   ├── strawberry.dae
+│   │   │   └── strawberry.stl
+│   │   ├── model.config
+│   │   ├── strawberry-1_2.sdf
+│   │   ├── strawberry-1_3.sdf
+│   │   ├── strawberry-1_4.sdf
+│   │   ├── strawberry.sdf
+│   │   └── strawberry.urdf
+│   └── sun
+│       ├── model-1_2.sdf
+│       ├── model-1_3.sdf
+│       ├── model-1_4.sdf
+│       ├── model.config
+│       └── model.sdf
+├── nvim-linux-x86_64.tar.gz
+├── proof_imgs
+│   ├── camera_info.npz
+│   ├── camera_pose.npz
+│   ├── depth.npy
+│   ├── depth_preview.png
+│   ├── meta.json
+│   └── rgb.png
+├── sawyer.rviz
+├── src
+│   ├── CMakeLists.txt -> /opt/ros/noetic/share/catkin/cmake/toplevel.cmake
+│   ├── intera_common
+│   │   ├── CHANGELOG.rst
+│   │   ├── CONTRIBUTING.md
+│   │   ├── intera_common
+│   │   │   ├── CMakeLists.txt
+│   │   │   └── package.xml
+│   │   ├── intera_core_msgs
+│   │   │   ├── action
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── msg
+│   │   │   ├── package.xml
+│   │   │   └── srv
+│   │   ├── intera_motion_msgs
+│   │   │   ├── action
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── msg
+│   │   │   └── package.xml
+│   │   ├── intera_tools_description
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── meshes
+│   │   │   ├── package.xml
+│   │   │   └── urdf
+│   │   ├── LICENSE
+│   │   └── README.rst
+│   ├── intera_sdk
+│   │   ├── CHANGELOG.rst
+│   │   ├── CONTRIBUTING.md
+│   │   ├── intera_examples
+│   │   │   ├── cfg
+│   │   │   ├── CHANGELOG.rst
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── launch
+│   │   │   ├── LICENSE
+│   │   │   ├── package.xml
+│   │   │   ├── README.rst
+│   │   │   ├── scripts
+│   │   │   ├── setup.py
+│   │   │   ├── share
+│   │   │   └── src
+│   │   ├── intera_interface
+│   │   │   ├── cfg
+│   │   │   ├── CHANGELOG.rst
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── epydoc.config
+│   │   │   ├── LICENSE
+│   │   │   ├── package.xml
+│   │   │   ├── README.rst
+│   │   │   ├── rosdoc.yaml
+│   │   │   ├── scripts
+│   │   │   ├── setup.py
+│   │   │   └── src
+│   │   ├── intera_sdk
+│   │   │   ├── CHANGELOG.rst
+│   │   │   ├── CMakeLists.txt
+│   │   │   └── package.xml
+│   │   ├── intera.sh
+│   │   ├── LICENSE
+│   │   └── README.rst
+│   ├── python_scripts_v1
+│   │   ├── archive
+│   │   ├── CMakeLists.txt
+│   │   ├── config
+│   │   ├── docs
+│   │   ├── launch
+│   │   │   └── sawyer_david.launch
+│   │   ├── package.xml
+│   │   ├── scripts
+│   │   │   ├── Bbox_to_world.py
+│   │   │   ├── calibrate_cam_pose.py
+│   │   │   ├── capture_frame.py
+│   │   │   ├── detection_markers.py
+│   │   │   ├── get_camera_pose.py
+│   │   │   ├── go_to_top_hand_camera_pos.py
+│   │   │   ├── move_tip_coordinates.py
+│   │   │   ├── move_tip_sns.py
+│   │   │   ├── read_yolo_data.py
+│   │   │   ├── send_safe_pose.py
+│   │   │   ├── spawn_pick_place_scene.py
+│   │   │   ├── take_block.py
+│   │   │   ├── test_gripper.py
+│   │   │   └── vision_get_poses.py
+│   │   └── src
+│   ├── sawyer_moveit
+│   │   ├── CHANGELOG.rst
+│   │   ├── CONTRIBUTING.md
+│   │   ├── LICENSE
+│   │   ├── README.rst
+│   │   ├── sawyer_moveit
+│   │   │   ├── CMakeLists.txt
+│   │   │   └── package.xml
+│   │   ├── sawyer_moveit_config
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── config
+│   │   │   ├── launch
+│   │   │   ├── package.xml
+│   │   │   └── srdf
+│   │   ├── sawyer_moveit_mycodes
+│   │   │   ├── sawyer-moveit-gazebo-bridge
+│   │   │   └── scripts
+│   │   └── sawyer_moveit.rosinstall
+│   ├── sawyer_robot
+│   │   ├── CHANGELOG.rst
+│   │   ├── CONTRIBUTING.md
+│   │   ├── LICENSE
+│   │   ├── README.rst
+│   │   ├── sawyer_description
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── config
+│   │   │   ├── launch
+│   │   │   ├── meshes
+│   │   │   ├── package.xml
+│   │   │   ├── params
+│   │   │   └── urdf
+│   │   ├── sawyer_robot
+│   │   │   ├── CMakeLists.txt
+│   │   │   └── package.xml
+│   │   └── sawyer_robot.rosinstall
+│   ├── sawyer_simulator
+│   │   ├── CHANGELOG.rst
+│   │   ├── CONTRIBUTING.md
+│   │   ├── LICENSE
+│   │   ├── README.rst
+│   │   ├── sawyer_gazebo
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── config
+│   │   │   ├── etc
+│   │   │   ├── include
+│   │   │   ├── launch
+│   │   │   ├── package.xml
+│   │   │   ├── sawyer_robot_hw_sim_plugins.xml
+│   │   │   ├── scripts
+│   │   │   ├── share
+│   │   │   ├── src
+│   │   │   └── worlds
+│   │   ├── sawyer_hardware_interface
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── include
+│   │   │   └── package.xml
+│   │   ├── sawyer_sim_controllers
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── config
+│   │   │   ├── include
+│   │   │   ├── launch
+│   │   │   ├── package.xml
+│   │   │   └── src
+│   │   ├── sawyer_sim_examples
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── launch
+│   │   │   ├── models
+│   │   │   ├── package.xml
+│   │   │   └── scripts
+│   │   ├── sawyer_simulator
+│   │   │   ├── CMakeLists.txt
+│   │   │   └── package.xml
+│   │   └── sawyer_simulator.rosinstall
+│   └── sns_ik
+│       ├── README.md
+│       ├── sns_ik
+│       │   ├── CHANGELOG.rst
+│       │   ├── CMakeLists.txt
+│       │   └── package.xml
+│       ├── sns_ik_examples
+│       │   ├── CHANGELOG.rst
+│       │   ├── CMakeLists.txt
+│       │   ├── config
+│       │   ├── launch
+│       │   ├── package.xml
+│       │   ├── README.md
+│       │   └── src
+│       ├── sns_ik_kinematics_plugin
+│       │   ├── CATKIN_IGNORE
+│       │   ├── CHANGELOG.rst
+│       │   ├── CMakeLists.txt
+│       │   ├── package.xml
+│       │   └── README.md
+│       └── sns_ik_lib
+│           ├── CHANGELOG.rst
+│           ├── CMakeLists.txt
+│           ├── include
+│           ├── LICENSE.txt
+│           ├── matlab
+│           ├── package.xml
+│           ├── src
+│           ├── test
+│           └── utilities
+├── workspace_files.txt
+├── workspace_tree.txt
+└── yolo_model
+    ├── args.yaml
+    ├── BoxF1_curve.png
+    ├── BoxP_curve.png
+    ├── BoxPR_curve.png
+    ├── BoxR_curve.png
+    ├── confusion_matrix_normalized.png
+    ├── confusion_matrix.png
+    ├── labels.jpg
+    ├── results.csv
+    ├── results.png
+    ├── train_batch0.jpg
+    ├── train_batch1980.jpg
+    ├── train_batch1981.jpg
+    ├── train_batch1982.jpg
+    ├── train_batch1.jpg
+    ├── train_batch2.jpg
+    ├── val_batch0_labels.jpg
+    ├── val_batch0_pred.jpg
+    ├── val_batch1_labels.jpg
+    ├── val_batch1_pred.jpg
+    └── weights
+        ├── best.pt
+        └── last.pt
+
+116 directories, 218 files
