@@ -36,7 +36,7 @@ class OpenAIChatClient:
             "temperature": temperature
         }
 
-        try
+        try:
             response = requests.post(self.api_url, headers=self.headers, json=data)
             
             response.raise_for_status()
