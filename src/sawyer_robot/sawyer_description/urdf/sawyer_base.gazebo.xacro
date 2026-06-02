@@ -125,7 +125,8 @@
         <image>
           <width>1200</width>
           <height>800</height>
-          <format>R8G8B8</format> </image>
+          <format>R8G8B8</format> 
+        </image>
         <clip>
           <near>0.02</near>
           <far>10</far>
@@ -146,9 +147,12 @@
         
         <frameName>right_hand_camera_optical</frameName>
         
+        <focalLength>0.0</focalLength> 
+        
+        <hackBaseline>0.0</hackBaseline>
+        
         <pointCloudCutoff>0.05</pointCloudCutoff>
         <pointCloudCutoffMax>10.0</pointCloudCutoffMax>
-        <focalLength>613.760435</focalLength>
       </plugin>
     </sensor>
   </gazebo>
