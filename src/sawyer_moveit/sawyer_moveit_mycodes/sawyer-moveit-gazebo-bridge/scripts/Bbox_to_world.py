@@ -376,33 +376,15 @@ def load_results_yaml(yaml_path: str):
 #  __main__
 # ─────────────────────────────────────────────────────────────────────────────
 
-if __name__ == "__main__":
-    import json
+def get_positions(results, depth_img, pos, quat):
 
-    result = load_results_yaml(
-        "/home/david/ros_ws/src/sawyer_moveit/sawyer_moveit_mycodes/"
-        "sawyer-moveit-gazebo-bridge/scripts/res.yaml")
-    if isinstance(result, list):
-        result = result[0]
-
-    try:
-        depth_img = np.load("depth.npy").astype(np.float32)
-        print(f"Depth image loaded: {depth_img.shape}  "
-              f"range [{np.nanmin(depth_img):.3f}, {np.nanmax(depth_img):.3f}] m")
-    except FileNotFoundError:
-        depth_img = None
-        print("depth.npy not found — using size-fallback.")
+    result = results[0]
 
     snap     = load_snapshot("~/ros_ws/proof_imgs")
-    
     # 1. Get the pure, unadulterated TF coordinates
     cam_pos  = snap["cam_pos"]
     cam_quat = snap["cam_quat"]
 
-    print("printing cam pos and quat")
-    print(cam_pos)
-    print(cam_quat)
-    
     # 2. Add the Gazebo pedestal height!
     cam_pos[2] += 0.930 
     
@@ -418,16 +400,16 @@ if __name__ == "__main__":
         K=K, depth_img=depth_img,
     )
 
-    print(f"\nFound {len(detections)} object(s):\n")
-    for d in detections:
-        wx, wy, wz = d["world_xyz"]
-        bx, by, bz = d["world_base"]
-        print(
-            f"  {d['name']:22s}  conf={d['confidence']:.2f}  "
-            f"centre=({wx:+.3f}, {wy:+.3f}, {wz:+.3f})  "
-            f"base=({bx:+.3f}, {by:+.3f}, {bz:+.3f})  "
-            f"depth={d['depth']:.3f}m  [{d['depth_source']}]"
-        )
+    # print(f"\nFound {len(detections)} object(s):\n")
+    # for d in detections:
+    #     wx, wy, wz = d["world_xyz"]
+    #     bx, by, bz = d["world_base"]
+    #     print(
+    #         f"  {d['name']:22s}  conf={d['confidence']:.2f}  "
+    #         f"centre=({wx:+.3f}, {wy:+.3f}, {wz:+.3f})  "
+    #         f"base=({bx:+.3f}, {by:+.3f}, {bz:+.3f})  "
+    #         f"depth={d['depth']:.3f}m  [{d['depth_source']}]"
+    #     )
 
     # ── Calibrate R_FIX against ground truth from /gazebo/model_states ───
     # Paste the real positions from:  rostopic echo -n1 /gazebo/model_states
@@ -482,6 +464,5 @@ if __name__ == "__main__":
             "depth_source": d["depth_source"],
             "bbox_norm":    list(d["bbox_norm"]),
         })
-    with open("detections_world.json", "w") as f:
-        json.dump(out, f, indent=2)
-    print("\nSaved detections_world.json")
+
+    return out
