@@ -224,6 +224,7 @@ def make_scene() -> dict:
                 "w_norm": float(d["bbox_norm"][2]),
                 "h_norm": float(d["bbox_norm"][3]),
             },
+            "orientation": 0.0,  # yaw in degrees; will come from camera algorithm
             "confidence": float(d["confidence"]),
             "half_extents": list(half),
         }
