@@ -35,7 +35,7 @@
           name="spawn_pick_place_scene"
           output="screen"
           respawn="false"
-          launch-prefix="bash -c 'sleep 8; exec $0 $@'"/>
+          launch-prefix="bash -c 'sleep 15; exec $0 $@'"/>
 
     <!-- ========================================================= -->
     <!-- 4. Send Sawyer to safe initial pose                       -->
@@ -46,7 +46,7 @@
           name="send_safe_pose"
           output="screen"
           respawn="false"
-          launch-prefix="bash -c 'sleep 12; exec $0 $@'"/>
+          launch-prefix="bash -c 'sleep 23; exec $0 $@'"/>
 
     <!-- ========================================================= -->
     <!-- 5. Optional: move arm to top hand-camera pose             -->
@@ -54,13 +54,11 @@
     <!--    automatically to the vision/camera observation pose.   -->
     <!-- ========================================================= -->
 
-    <!--
     <node pkg="python_scripts_v1"
           type="go_to_top_hand_camera_pos.py"
           name="go_to_top_hand_camera_pos"
           output="screen"
           respawn="false"
-          launch-prefix="bash -c 'sleep 16; exec $0 $@'"/>
-    -->
+          launch-prefix="bash -c 'sleep 30 ; exec $0 $@'"/>
 
 </launch>

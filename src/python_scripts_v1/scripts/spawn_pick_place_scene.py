@@ -9,7 +9,7 @@ from geometry_msgs.msg import Pose, Point, Quaternion
 from tf.transformations import quaternion_from_euler
 
 
-MODEL_PATH = os.path.expanduser("./models")
+MODEL_PATH = os.path.expanduser("~/ros_ws_team/models")
 
 
 def rpy_deg_to_quat(roll=0.0, pitch=0.0, yaw=0.0):
@@ -119,7 +119,7 @@ def load_gazebo_models():
     )
 
     # Row 3
-    esponja_lavaplatos_pose = make_pose(
+    sponge_pose = make_pose(
         x=0.45, y=-0.30, z=0.78,
         roll=0, pitch=0, yaw=0
     )
@@ -142,7 +142,7 @@ def load_gazebo_models():
     coke_can_xml = read_model("coke_can/model.sdf")
     bowl_xml = read_model("bowl/model.sdf")
     planta_maceta_xml = read_model("planta_maceta/model.sdf")
-    esponja_lavaplatos_xml = read_model("esponja_lavaplatos/model.sdf")
+    sponge_xml = read_model("sponge/model.sdf")
     papas_fritas_xml = read_model("papas_fritas/model.sdf")
 
     # -------------------------------------------------------------------------
@@ -158,7 +158,7 @@ def load_gazebo_models():
         "coke_can",
         "bowl",
         "planta_maceta",
-        "esponja_lavaplatos",
+        "sponge",
         "papas_fritas",
     ]
 
@@ -185,7 +185,7 @@ def load_gazebo_models():
     spawn_sdf_model(spawn_sdf, "strawberry", strawberry_xml, strawberry_pose)
     spawn_sdf_model(spawn_sdf, "planta_maceta", planta_maceta_xml, planta_maceta_pose)
 
-    spawn_sdf_model(spawn_sdf, "esponja_lavaplatos", esponja_lavaplatos_xml, esponja_lavaplatos_pose)
+    spawn_sdf_model(spawn_sdf, "sponge", sponge_xml, sponge_pose)
     spawn_sdf_model(spawn_sdf, "papas_fritas", papas_fritas_xml, papas_fritas_pose)
 
     spawn_urdf_model(spawn_urdf, "block", block_xml, block_pose)

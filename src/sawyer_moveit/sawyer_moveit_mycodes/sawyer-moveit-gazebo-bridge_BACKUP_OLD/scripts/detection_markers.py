@@ -166,7 +166,7 @@ class DetectionMarkerPub:
                 f"({det.get('name', '?')}  conf={conf:.2f})  "
                 f"@ ({xyz[0]:+.3f}, {xyz[1]:+.3f}, {xyz[2]:+.3f})"
             )
-
+            
     def clear(self):
         """Remove all detection spheres from Gazebo."""
         self._delete_all()

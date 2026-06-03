@@ -1,48 +1,70 @@
+cat > ~/ros_ws_team/models/esponja_lavaplatos/model.sdf << 'EOF'
 <?xml version="1.0" ?>
 <sdf version="1.6">
   <model name="esponja_lavaplatos">
     <static>false</static>
+
     <link name="base_link">
-      
+
+      <!--
+        Stabilized inertial values.
+        Original mass was 0.02 kg.
+        Increased to 0.20 kg to reduce unrealistic bouncing/sliding.
+      -->
       <inertial>
-        <pose>0 0 0.015 0 0 0</pose> <mass>0.02</mass>
+        <pose>0 0 0.015 0 0 0</pose>
+        <mass>0.20</mass>
         <inertia>
-          <ixx>0.00000831</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
-          <iyy>0.00001816</iyy> <iyz>0.0</iyz>
-          <izz>0.00002481</izz>
+          <ixx>0.00008310</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.00018160</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.00024810</izz>
         </inertia>
       </inertial>
 
+      <!-- Extra damping to avoid excessive movement after contact -->
       <velocity_decay>
-        <linear>0.1</linear>
-        <angular>0.1</angular>
+        <linear>0.35</linear>
+        <angular>0.45</angular>
       </velocity_decay>
 
       <collision name="collision_esponja">
         <pose>0 0 0.015 0 0 0</pose>
         <geometry>
           <box>
-            <size>0.10 0.07 0.03</size> </box>
+            <size>0.10 0.07 0.03</size>
+          </box>
         </geometry>
+
         <surface>
           <friction>
             <ode>
-              <mu>1.5</mu> <mu2>1.5</mu2>
+              <!-- High friction so object does not slide too easily -->
+              <mu>2.5</mu>
+              <mu2>2.5</mu2>
             </ode>
           </friction>
+
           <contact>
             <ode>
-              <kp>50000.0</kp> <kd>10.0</kd>
+              <!-- Contact stiffness/damping.
+                   Too high can make Gazebo unstable, so keep moderate. -->
+              <kp>80000.0</kp>
+              <kd>25.0</kd>
+              <max_vel>0.05</max_vel>
+              <min_depth>0.001</min_depth>
             </ode>
           </contact>
         </surface>
       </collision>
 
       <visual name="visual_amarillo">
-        <pose>0 0 0.0125 0 0 0</pose> 
+        <pose>0 0 0.0125 0 0 0</pose>
         <geometry>
           <box>
-            <size>0.10 0.07 0.025</size> 
+            <size>0.10 0.07 0.025</size>
           </box>
         </geometry>
         <material>
@@ -54,10 +76,11 @@
       </visual>
 
       <visual name="visual_verde">
-        <pose>0 0 0.0275 0 0 0</pose> 
+        <pose>0 0 0.0275 0 0 0</pose>
         <geometry>
           <box>
-            <size>0.10 0.07 0.005</size> </box>
+            <size>0.10 0.07 0.005</size>
+          </box>
         </geometry>
         <material>
           <script>
@@ -70,3 +93,4 @@
     </link>
   </model>
 </sdf>
+EOF

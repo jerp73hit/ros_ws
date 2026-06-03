@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="sponge">
+    <static>false</static>
+
+    <link name="base_link">
+
+      <!--
+        Scaled sponge model.
+        Original size: 0.10 x 0.07 x 0.03 m
+        New size:      0.075 x 0.0525 x 0.0225 m
+
+        Stabilized with exaggerated mass/inertia/friction.
+      -->
+
+      <inertial>
+        <pose>0 0 0.01125 0 0 0</pose>
+        <mass>0.20</mass>
+        <inertia>
+          <ixx>0.000163</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.000307</iyy>
+          <iyz>0.0</iyz>
+          <izz>0.000419</izz>
+        </inertia>
+      </inertial>
+
+      <velocity_decay>
+        <linear>0.35</linear>
+        <angular>0.45</angular>
+      </velocity_decay>
+
+      <collision name="collision_sponge">
+        <pose>0 0 0.01125 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.075 0.0525 0.0225</size>
+          </box>
+        </geometry>
+
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.5</mu>
+              <mu2>2.5</mu2>
+            </ode>
+          </friction>
+
+          <contact>
+            <ode>
+              <kp>80000.0</kp>
+              <kd>25.0</kd>
+              <max_vel>0.05</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+
+      <visual name="visual_yellow">
+        <pose>0 0 0.009375 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.075 0.0525 0.01875</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Yellow</name>
+          </script>
+        </material>
+      </visual>
+
+      <visual name="visual_green">
+        <pose>0 0 0.020625 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.075 0.0525 0.00375</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Green</name>
+          </script>
+        </material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>
