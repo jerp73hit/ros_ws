@@ -6,12 +6,12 @@
         <pose>0 0 0.06 0 0 0</pose>
         <mass>0.390</mass>
         <inertia>
-          <ixx>0.00055575</ixx>
+          <ixx>55575</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.00055575</iyy>
+          <iyy>55575</iyy>
           <iyz>0</iyz>
-          <izz>0.0001755</izz>
+          <izz>1755</izz>
         </inertia>
       </inertial>
       <collision name="collision">
@@ -19,13 +19,14 @@
         <geometry>
           <mesh>
             <uri>model://coke_can/meshes/coke_can.dae</uri>
+            <scale>0.8 0.8 0.8</scale>
           </mesh>
         </geometry>
         <surface>
           <friction>
             <ode>
-              <mu>1.0</mu>
-              <mu2>1.0</mu2>
+              <mu>1000.0</mu>
+              <mu2>1000.0</mu2>
             </ode>
           </friction>
           <contact>
@@ -43,6 +44,7 @@
         <geometry>
           <mesh>
             <uri>model://coke_can/meshes/coke_can.dae</uri>
+            <scale>0.8 0.8 0.8</scale>
           </mesh>
         </geometry>
       </visual>

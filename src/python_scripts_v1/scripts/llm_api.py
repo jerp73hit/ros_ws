@@ -25,7 +25,7 @@ WORLD_FRAME = "world"
 CAMERA_FRAME = "right_hand_camera"
 
 VELOCITY_SCALING = 0.1
-MOVE_TIMEOUT = 28.0
+MOVE_TIMEOUT = 8.0
 SAWYER_BASE_Z = 0.93
 Z_OFFSET = 0.012
 IK_BASE_LINK = "base"
@@ -227,6 +227,8 @@ def make_scene() -> dict:
             "confidence": float(d["confidence"]),
             "half_extents": list(half),
         }
+
+    print(objects.keys())
 
     return {
         "eef_pos": eef_pos,
