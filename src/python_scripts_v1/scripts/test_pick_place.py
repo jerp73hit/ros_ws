@@ -6,11 +6,11 @@ init_api()
 rospy.sleep(1.0)
 scene = make_scene()
 
-# 2. Extract locations and dimensions for the coke_can and the bowl
-coke_can = scene["objects"]["coke_can"]
+# 2. Extract locations and dimensions for the strawberry and the bowl
+strawberry = scene["objects"]["strawberry"]
 bowl = scene["objects"]["bowl"]
 
-pick_x, pick_y, pick_z = coke_can["center"]
+pick_x, pick_y, pick_z = strawberry["center"]
 
 # Calculate the placement position on top of the bowl
 # Using the bowl's center XY and adding its Z half-extent to find its top surface
