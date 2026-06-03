@@ -1,3 +1,4 @@
+import os
 import rospy
 import message_filters
 import intera_interface
@@ -14,6 +15,9 @@ from trac_ik_python.trac_ik import IK
 from ultralytics import YOLO
 from frame2world import get_positions, OBJECT_CLASSES
 
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_MODEL_PATH = os.path.realpath(os.path.join(_SCRIPT_DIR, "..", "..", "..", "yolo_model", "weights", "best.pt"))
+
 RGB_TOPIC = "/io/internal_camera/right_hand_camera/image_raw"
 DEPTH_TOPIC = "/io/internal_camera/right_hand_camera/depth/image_raw"
 INFO_TOPIC = "/io/internal_camera/right_hand_camera/camera_info"
@@ -23,6 +27,7 @@ CAMERA_FRAME = "right_hand_camera"
 VELOCITY_SCALING = 0.1
 MOVE_TIMEOUT = 28.0
 SAWYER_BASE_Z = 0.93
+Z_OFFSET = 0.012
 IK_BASE_LINK = "base"
 IK_TIP_LINK = "right_gripper_tip"
 JOINT_NAMES = [
@@ -33,6 +38,7 @@ SAFE_POSE = [
     -0.041663, -1.025829, 0.029368, 2.175181,
     -0.067030, 0.396837, 1.765965,
 ]
+SAFE_Z = 0.93
 X_RANGE = [0.30, 0.90]
 Y_RANGE = [-0.60, 0.60]
 Z_RANGE = [-0.20, 0.80]
@@ -58,7 +64,7 @@ class receiver:
         self.cam_pos = None
         self.cam_quat = None
 
-        self.model = YOLO("yolo_model/weights/best.pt")
+        self.model = YOLO(_MODEL_PATH)
 
         rospy.loginfo("Waiting for camera_info...")
         camera_info = rospy.wait_for_message(INFO_TOPIC, CameraInfo, timeout=15.0)
@@ -101,7 +107,7 @@ class receiver:
             pos = np.array([
                 trans.transform.translation.x,
                 trans.transform.translation.y,
-                trans.transform.translation.z + SAWYER_BASE_Z,
+                trans.transform.translation.z,
             ])
             quat = np.array([
                 trans.transform.rotation.x,
@@ -126,6 +132,19 @@ class receiver:
                 self.cam_pos.copy() if self.cam_pos is not None else None,
                 self.cam_quat.copy() if self.cam_quat is not None else None,
             )
+
+
+def debug_camera():
+    if _rec is None:
+        return None
+    frame, depth, K, cam_pos, cam_quat = _rec.snapshot()
+    from frame2world import get_r_fix
+    return {
+        "K": K.copy() if K is not None else None,
+        "cam_pos": cam_pos.copy() if cam_pos is not None else None,
+        "cam_quat": cam_quat.copy() if cam_quat is not None else None,
+        "r_fix": get_r_fix(),
+    }
 
 
 def init_api(camera_frame="right_hand_camera"):
@@ -179,7 +198,7 @@ def make_scene() -> dict:
     eef_pos = [
         eef_pose["position"].x,
         eef_pose["position"].y,
-        eef_pose["position"].z + SAWYER_BASE_Z,
+        eef_pose["position"].z,
     ]
     eef_quat = [
         eef_pose["orientation"].x,
@@ -197,6 +216,8 @@ def make_scene() -> dict:
         objects[name] = {
             "center": d["world_xyz"].tolist(),
             "base": d["world_base"].tolist(),
+            "depth": d.get("depth", None),
+            "depth_source": d.get("depth_source", "unknown"),
             "bbox": {
                 "cx_norm": float(d["bbox_norm"][0]),
                 "cy_norm": float(d["bbox_norm"][1]),
@@ -233,6 +254,14 @@ def _compute_ik(limb, solver, x, y, z, roll_deg, pitch_deg, yaw_deg):
 
 
 def execute_waypoints(waypoints):
+    _gripper.open()
+    rospy.sleep(0.3)
+
+    ep = _limb.endpoint_pose()
+    cur_x = ep["position"].x
+    cur_y = ep["position"].y
+    cur_z_w = ep["position"].z + SAWYER_BASE_Z
+
     for wp in waypoints:
         valid = True
         for key in ("pos", "ori", "gripper"):
@@ -247,19 +276,23 @@ def execute_waypoints(waypoints):
             valid = False
         if not valid:
             continue
-        rospy.sleep(0.3)
-        x, y, z = wp["pos"]
+
+        x, y, z_t = wp["pos"]
         r, p, ya = wp["ori"]
-        solution = _compute_ik(_limb, _solver, x, y, z, r, p, ya)
-        if not solution:
-            rospy.logwarn("IK failed for waypoint at (%.3f, %.3f, %.3f)", x, y, z)
-            continue
-        joint_goal = dict(zip(JOINT_NAMES, solution))
-        steps = wp.get("steps", 100)
-        speed = max(0.01, VELOCITY_SCALING * 10.0 / max(steps, 1))
-        _limb.set_joint_position_speed(speed)
-        _limb.move_to_joint_positions(joint_goal, timeout=MOVE_TIMEOUT)
-        rospy.sleep(0.3)
+        if z_t <= 0.001:
+            z_t = SAFE_Z
+
+        xy_change = abs(x - cur_x) > 0.005 or abs(y - cur_y) > 0.005
+        z_change = abs(z_t - cur_z_w) > 0.005
+
+        if z_change:
+            if xy_change:
+                move_to_pose(x, y, cur_z_w, r, p, ya)
+            move_straight_z(x, y, cur_z_w, z_t, r, p, ya)
+        else:
+            move_to_pose(x, y, z_t, r, p, ya)
+
+        cur_x, cur_y, cur_z_w = x, y, z_t
 
         if wp["gripper"] == "open":
             _gripper.open()
@@ -267,25 +300,83 @@ def execute_waypoints(waypoints):
             _gripper.close()
         rospy.sleep(0.3)
 
+    go_to_safe_pose()
+
+
+def move_to_pose(x, y, z, roll_deg, pitch_deg, yaw_deg, velocity=None):
+    if velocity is None:
+        velocity = VELOCITY_SCALING
+    solution = _compute_ik(_limb, _solver, x, y, z, roll_deg, pitch_deg, yaw_deg)
+    if not solution:
+        return False
+    joint_goal = dict(zip(JOINT_NAMES, solution))
+    _limb.set_joint_position_speed(velocity)
+    _limb.move_to_joint_positions(joint_goal, timeout=MOVE_TIMEOUT)
+    return True
+
+
+def move_straight_z(x, y, z_start, z_end, roll_deg, pitch_deg, yaw_deg, steps=10):
+    distance = z_end - z_start
+    step_inc = distance / steps
+    for i in range(1, steps + 1):
+        z_current = z_start + (step_inc * i)
+        success = move_to_pose(x, y, z_current, roll_deg, pitch_deg, yaw_deg, velocity=0.05)
+        if not success:
+            return False
+        rospy.sleep(0.05)
+    return True
+
 
 def adjust_grasp_waypoints(scene, waypoints):
     adjusted = []
+    snapped = set()
     for wp in waypoints:
         awp = dict(wp)
         if awp["gripper"] == "close":
             x, y, z = awp["pos"]
-            best_dist = float("inf")
+            best_name = None
             best_obj = None
+            best_dist = float("inf")
             for name, obj in scene["objects"].items():
                 ox, oy, _ = obj["center"]
                 dist = math.hypot(x - ox, y - oy)
                 if dist < best_dist:
                     best_dist = dist
+                    best_name = name
                     best_obj = obj
             if best_obj is not None and best_dist < 0.15:
                 cx, cy, _ = best_obj["center"]
-                base_z = best_obj["base"][2]
-                half_z = best_obj["half_extents"][2]
-                awp["pos"] = [cx, cy, base_z + half_z]
+                if best_name not in snapped:
+                    base_z = best_obj["base"][2]
+                    half_z = best_obj["half_extents"][2]
+                    pick_z = base_z + half_z
+                    table_z = scene.get("table_z", 0.755)
+                    if pick_z < table_z + 0.015:
+                        pick_z = table_z + 0.015
+                    awp["pos"] = [cx, cy, pick_z]
+                    snapped.add(best_name)
         adjusted.append(awp)
     return adjusted
+
+
+def go_to_safe_pose():
+    global _limb
+    joint_goal = dict(zip(JOINT_NAMES, SAFE_POSE))
+    _limb.set_joint_position_speed(VELOCITY_SCALING)
+    _limb.move_to_joint_positions(joint_goal, timeout=MOVE_TIMEOUT)
+
+
+def go_to_neutral():
+    global _limb
+    _limb.set_joint_position_speed(VELOCITY_SCALING)
+    _limb.move_to_neutral(timeout=MOVE_TIMEOUT)
+
+
+def get_limb():
+    global _limb
+    return _limb
+
+
+def get_gripper():
+    global _gripper
+    return _gripper

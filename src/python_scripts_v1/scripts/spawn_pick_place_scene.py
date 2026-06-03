@@ -9,7 +9,7 @@ from geometry_msgs.msg import Pose, Point, Quaternion
 from tf.transformations import quaternion_from_euler
 
 
-MODEL_PATH = os.path.expanduser("~/ros_ws_team/models")
+MODEL_PATH = os.path.expanduser("./models")
 
 
 def rpy_deg_to_quat(roll=0.0, pitch=0.0, yaw=0.0):
