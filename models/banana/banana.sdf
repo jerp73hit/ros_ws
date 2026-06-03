@@ -2,18 +2,41 @@
 <sdf version="1.5">
   <model name="banana">
     <link name="banana">
-      <gravity>false</gravity>
+      <gravity>true</gravity>
+      
       <inertial>
         <mass>0.02</mass>
+        <inertia>
+          <ixx>0.000004</ixx>  <ixy>0</ixy> <ixz>0</ixz>
+          <iyy>0.000068</iyy>  <iyz>0</iyz>
+          <izz>0.000068</izz>
+        </inertia>
       </inertial>
+      
       <collision name="banana_collision">
-        <geometry><box><size>0.0001 0.0001 0.0001</size></box></geometry>
-          <surface>
-            <contact>
-              <collide_without_contact>true</collide_without_contact>
-            </contact>
-          </surface>
+        <geometry>
+          <mesh>
+            <uri>model://banana/meshes/banana.dae</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1000.0</mu>
+              <mu2>1000.0</mu2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <kp>1000000.0</kp>
+              <kd>1.0</kd>
+              <min_depth>0.001</min_depth>
+              <max_vel>0.0</max_vel>
+            </ode>
+          </contact>
+        </surface>
       </collision>
+      
       <visual name="banana_visual">
         <geometry>
           <mesh>
@@ -21,6 +44,7 @@
           </mesh>
         </geometry>
       </visual>
+      
     </link>
   </model>
 </sdf>
