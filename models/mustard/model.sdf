@@ -5,14 +5,15 @@
       <inertial>
         <pose>-0.015054 -0.023109 0.075042 0 0 0</pose>
         <mass>0.2</mass>
-        <inertia>
-          <ixx>0.000326</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.000652</iyy>
-          <iyz>0</iyz>
-          <izz>0.000000</izz>
-        </inertia>
+        <!-- <inertia> -->
+        <!--   <ixx>0.000326</ixx> -->
+        <!--   <ixy>0</ixy> -->
+        <!--   <ixz>0</ixz> -->
+        <!--   <iyy>0.000652</iyy> -->
+        <!--   <iyz>0</iyz> -->
+        <!--   <izz>0.000000</izz> -->
+        <!-- </inertia> -->
+      <inertia ixx="0.000075" ixy="0.0" ixz="0.0" iyy="0.000075" iyz="0.0" izz="0.000075" />
       </inertial>
       <visual name="mustard">
         <pose>0 0 0 0 0 0</pose>
@@ -36,7 +37,10 @@
             <threshold>0</threshold>
           </bounce>
           <friction>
-            <ode/>      
+            <ode>
+              <mu>1000.0</mu>
+              <mu2>1000.0</mu2>
+            <ode/>
           </friction>
           <contact>
             <ode>

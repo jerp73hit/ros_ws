@@ -1,4 +1,6 @@
 <launch>
+    <env name="GAZEBO_MODEL_PATH" value="$(env HOME)/ros_ws_team/models:$(optenv GAZEBO_MODEL_PATH):./models" />
+
     <!-- 1. Sawyer Gazebo simulation with electric gripper -->
     <include file="$(find sawyer_gazebo)/launch/sawyer_world.launch">
         <arg name="electric_gripper" value="true"/>
