@@ -1,0 +1,154 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="potatoes">
+    <static>false</static>
+
+    <link name="base_link">
+
+      <!--
+        Modelo estable pero todavía fácil de mover con el gripper.
+
+        - Masa moderada
+        - Centro de masa bajo
+        - Base pequeña para evitar vuelco
+        - Núcleo angosto para permitir agarre
+      -->
+
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+
+      <inertial>
+        <pose>0 0 0.025 0 0 0</pose>
+
+        <!-- Antes 0.85 kg: demasiado pesado para esta simulación -->
+        <mass>0.30</mass>
+
+        <inertia>
+          <ixx>0.00075</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+
+          <iyy>0.00075</iyy>
+          <iyz>0.0</iyz>
+
+          <izz>0.00055</izz>
+        </inertia>
+      </inertial>
+
+      <!-- Amortiguamiento moderado -->
+      <velocity_decay>
+        <linear>0.25</linear>
+        <angular>0.35</angular>
+      </velocity_decay>
+
+      <!-- Base estable, pero no demasiado ancha -->
+      <collision name="collision_stable_base">
+        <pose>0 0 0.010 0 0 0</pose>
+
+        <geometry>
+          <box>
+            <size>0.055 0.055 0.020</size>
+          </box>
+        </geometry>
+
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.5</mu>
+              <mu2>2.5</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>100000.0</threshold>
+          </bounce>
+
+          <contact>
+            <ode>
+              <kp>80000.0</kp>
+              <kd>25.0</kd>
+              <max_vel>0.05</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+
+      <!-- Parte que agarran los dedos -->
+      <collision name="collision_grasp_core">
+        <pose>0 0 0.045 0 0 0</pose>
+
+        <geometry>
+          <box>
+            <size>0.042 0.042 0.070</size>
+          </box>
+        </geometry>
+
+        <surface>
+          <friction>
+            <ode>
+              <mu>3.0</mu>
+              <mu2>3.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>100000.0</threshold>
+          </bounce>
+
+          <contact>
+            <ode>
+              <kp>80000.0</kp>
+              <kd>25.0</kd>
+              <max_vel>0.05</max_vel>
+              <min_depth>0.001</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+
+      <visual name="visual_basket">
+        <pose>0 0 0 0 0 0</pose>
+
+        <geometry>
+          <mesh>
+            <uri>model://potatoes/meshes/basket_v2.stl</uri>
+            <scale>2 2 2</scale>
+          </mesh>
+        </geometry>
+
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Red</name>
+          </script>
+        </material>
+      </visual>
+
+      <visual name="visual_potatoes">
+        <pose>0 0 0 0 0 0</pose>
+
+        <geometry>
+          <mesh>
+            <uri>model://potatoes/meshes/potato_block_v2.stl</uri>
+            <scale>2 2 2</scale>
+          </mesh>
+        </geometry>
+
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Yellow</name>
+          </script>
+        </material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>
