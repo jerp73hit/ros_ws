@@ -3,15 +3,12 @@
 import sys
 import rospy
 
-from gazebo_msgs.srv import GetModelState
-
 from llm_api import (
     init_api,
     make_scene,
+    adjust_grasp_waypoints,
+    execute_waypoints,
     get_limb,
-    get_gripper,
-    move_to_pose,
-    move_straight_z,
     go_to_safe_pose,
 )
 
@@ -20,78 +17,108 @@ from llm_api import (
 # CONFIGURACIÓN GENERAL
 # ──────────────────────────────────────────────────────────────
 
-DEFAULT_OBJECT = "sponge"
-
-HOVER_HEIGHT = 0.15
+DEFAULT_OBJECT = "strawberry"
 
 APPROACH_ORI = [180, 0, 0]
-GRASP_ORI = [180, 0, 180]
 
 SPEED = 0.12
 TIMEOUT = 25.0
 
-SAWYER_BASE_Z = 0.93
-TABLE_Z = 0.755
-MIN_Z_ABOVE_TABLE = 0.010
-
-# Usar Gazebo para calcular el punto real de agarre.
-# YOLO sigue siendo usado para detectar/listar objetos.
-USE_GAZEBO_TRUTH_FOR_PICK = True
+DEFAULT_TABLE_Z = 0.755
 
 
 # ──────────────────────────────────────────────────────────────
-# GEOMETRÍA REAL APROXIMADA DE MODELOS
+# PERFILES LOCALES DE AGARRE
 # ──────────────────────────────────────────────────────────────
 #
-# half_z debe coincidir con la mitad de la altura física/collision box.
+# grasp_height_ratio:
+#   0.00 = cerca de la base del objeto
+#   0.50 = centro vertical del objeto
+#   1.00 = parte superior del objeto
 #
-# potatoes:
-#   collision size z = 0.08
-#   half_z = 0.04
-#   get_model_state z ≈ 0.774
-#   center_z ≈ 0.774 + 0.04 = 0.814
-
-GAZEBO_HALF_EXTENTS = {
-    "potatoes": [0.040, 0.040, 0.040],
-    "sponge": [0.0375, 0.02625, 0.01125],
-    "block": [0.028, 0.028, 0.028],
-    "coke_can": [0.033, 0.033, 0.058],
-    "mustard": [0.038, 0.030, 0.075],
-    "banana": [0.110, 0.030, 0.022],
-    "strawberry": [0.025, 0.025, 0.022],
-    "bowl": [0.095, 0.095, 0.028],
-    "planta_maceta": [0.065, 0.065, 0.090],
-}
-
-# Offset adicional sobre el centro físico calculado.
+# Para strawberry usamos 0.20 porque la pinza debe bajar más que el
+# punto central que calcula adjust_grasp_waypoints().
 #
-# Para bajar más: valor negativo.
-# Para subir más: valor positivo.
+# min_tip_clearance:
+#   Distancia mínima permitida entre right_gripper_tip y la mesa.
 #
-# potatoes:
-#   centro físico ≈ 0.814
-#   con -0.010 → grasp_z ≈ 0.804
-# Esto debería meter la garra más dentro del volumen, sin irse a la mesa.
-GRASP_Z_OFFSET_BY_OBJECT = {
-    "potatoes": -0.010,
-    "sponge": -0.002,
-    "block": 0.000,
-    "coke_can": 0.000,
-    "mustard": 0.000,
-    "banana": 0.000,
-    "strawberry": 0.000,
-    "bowl": 0.020,
-    "planta_maceta": 0.020,
-}
+# hover_height:
+#   Altura interna de aproximación. No se solicita en terminal.
 
-RELEASE_Z_OFFSET_BY_OBJECT = {
-    "potatoes": 0.000,
-    "sponge": 0.000,
-    "block": 0.000,
-    "coke_can": 0.000,
-    "mustard": 0.000,
-    "banana": 0.000,
-    "strawberry": 0.000,
+GRASP_PROFILES = {
+    "block": {
+        "grasp_height_ratio": 0.50,
+        "z_offset": 0.000,
+        "hover_height": 0.15,
+        "yaw": 180.0,
+        "min_tip_clearance": 0.010,
+    },
+
+    "sponge": {
+        "grasp_height_ratio": 0.45,
+        "z_offset": 0.000,
+        "hover_height": 0.15,
+        "yaw": 180.0,
+        "min_tip_clearance": 0.008,
+    },
+
+    "potatoes": {
+        "grasp_height_ratio": 0.50,
+        "z_offset": 0.000,
+        "hover_height": 0.15,
+        "yaw": 180.0,
+        "min_tip_clearance": 0.010,
+    },
+
+    "strawberry": {
+        "grasp_height_ratio": 0.20,
+        "z_offset": 0.000,
+        "hover_height": 0.12,
+        "yaw": 180.0,
+        "min_tip_clearance": 0.004,
+    },
+
+    "coke_can": {
+        "grasp_height_ratio": 0.50,
+        "z_offset": 0.000,
+        "hover_height": 0.15,
+        "yaw": 180.0,
+        "min_tip_clearance": 0.010,
+    },
+
+    "mustard": {
+        "grasp_height_ratio": 0.55,
+        "z_offset": 0.000,
+        "hover_height": 0.15,
+        "yaw": 180.0,
+        "min_tip_clearance": 0.010,
+    },
+
+    "banana": {
+        "grasp_height_ratio": 0.45,
+        "z_offset": 0.000,
+        "hover_height": 0.12,
+        "yaw": 180.0,
+        "min_tip_clearance": 0.006,
+    },
+
+    "bowl": {
+        "grasp_height_ratio": 0.65,
+        "z_offset": 0.000,
+        "hover_height": 0.15,
+        "yaw": 180.0,
+        "min_tip_clearance": 0.010,
+    },
+
+    "plant": {
+        # La visión detecta la planta completa, pero queremos agarrar
+        # la maceta en la parte inferior, no las hojas.
+        "grasp_height_ratio": 0.22,
+        "z_offset": 0.000,
+        "hover_height": 0.15,
+        "yaw": 180.0,
+        "min_tip_clearance": 0.010,
+    },
 }
 
 
@@ -108,6 +135,17 @@ TOP_CAMERA_POSE = {
     "right_j5":  0.008300765583789449,
     "right_j6":  1.7659537569669599,
 }
+
+
+def get_profile(object_name):
+    if object_name in GRASP_PROFILES:
+        return GRASP_PROFILES[object_name]
+
+    rospy.logwarn(
+        "No local grasp profile for '%s'. Using block profile.",
+        object_name,
+    )
+    return GRASP_PROFILES["block"]
 
 
 def move_to_top_camera_pose():
@@ -127,7 +165,7 @@ def move_to_top_camera_pose():
 
 
 # ──────────────────────────────────────────────────────────────
-# INPUT
+# ENTRADAS DE TERMINAL
 # ──────────────────────────────────────────────────────────────
 
 def ask_float(prompt, default_value=0.0):
@@ -151,36 +189,45 @@ def ask_object(scene, default_object=DEFAULT_OBJECT):
         return None
 
     print("\n========== OBJETOS DETECTADOS ==========")
+
     for name, obj in objects.items():
-        center = obj.get("center", None)
-        base = obj.get("base", None)
-        half = obj.get("half_extents", None)
-        conf = obj.get("confidence", None)
+        center = obj.get("center")
+        base = obj.get("base")
+        half = obj.get("half_extents")
+        confidence = obj.get("confidence")
 
         print(" - {}".format(name))
 
         if center is not None:
-            print("   vision center = [{:.3f}, {:.3f}, {:.3f}]".format(
-                center[0], center[1], center[2]
-            ))
+            print(
+                "   center = [{:.3f}, {:.3f}, {:.3f}]".format(
+                    center[0], center[1], center[2]
+                )
+            )
 
         if base is not None:
-            print("   vision base   = [{:.3f}, {:.3f}, {:.3f}]".format(
-                base[0], base[1], base[2]
-            ))
+            print(
+                "   base   = [{:.3f}, {:.3f}, {:.3f}]".format(
+                    base[0], base[1], base[2]
+                )
+            )
 
         if half is not None:
-            print("   half extents  = [{:.3f}, {:.3f}, {:.3f}]".format(
-                half[0], half[1], half[2]
-            ))
+            print(
+                "   half   = [{:.3f}, {:.3f}, {:.3f}]".format(
+                    half[0], half[1], half[2]
+                )
+            )
 
-        if conf is not None:
-            print("   confidence    = {:.2f}".format(conf))
+        if confidence is not None:
+            print("   conf   = {:.2f}".format(confidence))
 
     print("========================================")
 
     while True:
-        selected = input("Objeto a mover [{}] o 'q' para salir: ".format(default_object)).strip()
+        selected = input(
+            "Objeto a mover [{}] o 'q' para salir: ".format(default_object)
+        ).strip()
 
         if selected.lower() == "q":
             return None
@@ -196,250 +243,170 @@ def ask_object(scene, default_object=DEFAULT_OBJECT):
 
 
 # ──────────────────────────────────────────────────────────────
-# GEOMETRÍA DEL OBJETO
+# GEOMETRÍA Y PUNTO DE AGARRE
 # ──────────────────────────────────────────────────────────────
 
-def get_gazebo_model_pose(model_name):
-    rospy.wait_for_service("/gazebo/get_model_state", timeout=5.0)
-    get_state = rospy.ServiceProxy("/gazebo/get_model_state", GetModelState)
-    resp = get_state(model_name, "world")
-
-    if not resp.success:
-        raise RuntimeError(resp.status_message)
-
-    return resp.pose
-
-
-def get_selected_object_geometry(scene, object_name):
+def snap_selected_object_xy(scene, object_name, yaw):
     """
-    Retorna:
-      x, y, center_z, base_z, half_z
+    Usa adjust_grasp_waypoints() solamente con un waypoint.
 
-    Si USE_GAZEBO_TRUTH_FOR_PICK=True, usa Gazebo para el objeto seleccionado.
-    Si no, usa la estimación de visión.
+    De esta forma aprovechamos el ajuste X/Y del código compartido,
+    pero evitamos que modifique otros waypoints de traslado que también
+    tienen el gripper cerrado.
     """
 
     obj = scene["objects"][object_name]
+    center = obj["center"]
 
-    vision_center = obj["center"]
-    vision_base = obj.get("base", None)
-    vision_half = obj.get("half_extents", None)
+    probe_waypoint = [
+        {
+            "pos": [center[0], center[1], center[2]],
+            "ori": [180, 0, yaw],
+            "gripper": "close",
+        }
+    ]
 
-    if not USE_GAZEBO_TRUTH_FOR_PICK:
-        half_z = vision_half[2] if vision_half is not None else 0.03
-        base_z = vision_base[2] if vision_base is not None else vision_center[2] - half_z
-        return vision_center[0], vision_center[1], vision_center[2], base_z, half_z
+    snapped = adjust_grasp_waypoints(scene, probe_waypoint)
 
-    if object_name not in GAZEBO_HALF_EXTENTS:
+    if not snapped:
+        return center[0], center[1]
+
+    snapped_pos = snapped[0].get("pos", center)
+
+    return snapped_pos[0], snapped_pos[1]
+
+
+def compute_grasp_z(scene, object_name):
+    """
+    Calcula un punto de agarre dentro de la altura del objeto.
+
+    No cambia la geometría de colisión.
+    No usa siempre el centro vertical.
+
+    Para strawberry:
+      base_z + 20 % de la altura detectada
+    """
+
+    obj = scene["objects"][object_name]
+    profile = get_profile(object_name)
+
+    base = obj.get("base")
+    half = obj.get("half_extents")
+    center = obj.get("center")
+
+    if base is None or half is None:
         rospy.logwarn(
-            "No Gazebo geometry configured for %s. Using vision geometry.",
+            "Missing base/half_extents for %s. Using detected center z.",
             object_name,
         )
-        half_z = vision_half[2] if vision_half is not None else 0.03
-        base_z = vision_base[2] if vision_base is not None else vision_center[2] - half_z
-        return vision_center[0], vision_center[1], vision_center[2], base_z, half_z
+        return center[2]
 
-    pose = get_gazebo_model_pose(object_name)
+    base_z = base[2]
+    half_z = half[2]
+    full_height = 2.0 * half_z
 
-    hx, hy, hz = GAZEBO_HALF_EXTENTS[object_name]
+    ratio = profile["grasp_height_ratio"]
+    z_offset = profile["z_offset"]
 
-    gazebo_x = pose.position.x
-    gazebo_y = pose.position.y
-    gazebo_base_z = pose.position.z
-    gazebo_center_z = gazebo_base_z + hz
+    requested_grasp_z = base_z + ratio * full_height + z_offset
 
-    rospy.loginfo("========== DANIEL GEOMETRY DEBUG ==========")
+    table_z = scene.get("table_z", DEFAULT_TABLE_Z)
+    min_grasp_z = table_z + profile["min_tip_clearance"]
+
+    grasp_z = max(requested_grasp_z, min_grasp_z)
+
+    rospy.loginfo("========== LOCAL GRASP GEOMETRY ==========")
     rospy.loginfo("Object: %s", object_name)
+    rospy.loginfo("Detected center_z: %.4f", center[2])
+    rospy.loginfo("Detected base_z:   %.4f", base_z)
+    rospy.loginfo("Detected half_z:   %.4f", half_z)
+    rospy.loginfo("Detected height:   %.4f", full_height)
+    rospy.loginfo("Grasp ratio:       %.2f", ratio)
+    rospy.loginfo("Requested grasp_z: %.4f", requested_grasp_z)
+    rospy.loginfo("Minimum grasp_z:   %.4f", min_grasp_z)
+    rospy.loginfo("Final grasp_z:     %.4f", grasp_z)
+    rospy.loginfo("==========================================")
 
-    rospy.loginfo(
-        "Vision center: x=%.3f y=%.3f z=%.3f",
-        vision_center[0], vision_center[1], vision_center[2],
-    )
+    return grasp_z
 
-    if vision_base is not None:
-        rospy.loginfo(
-            "Vision base:   x=%.3f y=%.3f z=%.3f",
-            vision_base[0], vision_base[1], vision_base[2],
-        )
-
-    if vision_half is not None:
-        rospy.loginfo(
-            "Vision half:   x=%.3f y=%.3f z=%.3f",
-            vision_half[0], vision_half[1], vision_half[2],
-        )
-
-    rospy.loginfo(
-        "Gazebo base:   x=%.3f y=%.3f z=%.3f",
-        gazebo_x, gazebo_y, gazebo_base_z,
-    )
-    rospy.loginfo(
-        "Gazebo center: x=%.3f y=%.3f z=%.3f",
-        gazebo_x, gazebo_y, gazebo_center_z,
-    )
-    rospy.loginfo("===========================================")
-
-    return gazebo_x, gazebo_y, gazebo_center_z, gazebo_base_z, hz
-
-
-# ──────────────────────────────────────────────────────────────
-# WAYPOINTS
-# ──────────────────────────────────────────────────────────────
 
 def build_waypoints(scene, object_name, dx, dy):
-    x, y, center_z, base_z, half_z = get_selected_object_geometry(scene, object_name)
+    obj = scene["objects"][object_name]
+    profile = get_profile(object_name)
 
-    table_z = scene.get("table_z", TABLE_Z)
-    min_safe_z = table_z + MIN_Z_ABOVE_TABLE
+    yaw = profile["yaw"]
+    hover_height = profile["hover_height"]
 
-    grasp_offset = GRASP_Z_OFFSET_BY_OBJECT.get(object_name, 0.0)
-    release_offset = RELEASE_Z_OFFSET_BY_OBJECT.get(object_name, 0.0)
+    pick_x, pick_y = snap_selected_object_xy(scene, object_name, yaw)
+    grasp_z = compute_grasp_z(scene, object_name)
 
-    grasp_z = center_z + grasp_offset
-    release_z = center_z + release_offset
+    place_x = pick_x + dx
+    place_y = pick_y + dy
 
-    if grasp_z < min_safe_z:
-        rospy.logwarn(
-            "Grasp z limited by table safety: requested %.3f -> %.3f",
-            grasp_z,
-            min_safe_z,
-        )
-        grasp_z = min_safe_z
+    pick_hover = [pick_x, pick_y, grasp_z + hover_height]
+    pick_grasp = [pick_x, pick_y, grasp_z]
 
-    if release_z < min_safe_z:
-        release_z = min_safe_z
-
-    target_x = x + dx
-    target_y = y + dy
-
-    pick_hover = [x, y, grasp_z + HOVER_HEIGHT]
-    pick_grasp = [x, y, grasp_z]
-
-    place_hover = [target_x, target_y, release_z + HOVER_HEIGHT]
-    place_release = [target_x, target_y, release_z]
-
-    rospy.loginfo(
-        "Daniel final geometry for %s: base_z=%.3f center_z=%.3f half_z=%.3f grasp_offset=%.3f grasp_z=%.3f release_z=%.3f",
-        object_name,
-        base_z,
-        center_z,
-        half_z,
-        grasp_offset,
-        grasp_z,
-        release_z,
-    )
+    place_hover = [place_x, place_y, grasp_z + hover_height]
+    place_release = [place_x, place_y, grasp_z]
 
     waypoints = [
-        {"name": "pick_hover_approach", "pos": pick_hover,    "ori": APPROACH_ORI, "gripper": "open"},
-        {"name": "pick_hover_align",    "pos": pick_hover,    "ori": GRASP_ORI,    "gripper": "open"},
-        {"name": "pick_grasp",          "pos": pick_grasp,    "ori": GRASP_ORI,    "gripper": "close"},
-        {"name": "pick_lift",           "pos": pick_hover,    "ori": GRASP_ORI,    "gripper": "close"},
-        {"name": "place_hover",         "pos": place_hover,   "ori": GRASP_ORI,    "gripper": "close"},
-        {"name": "place_release",       "pos": place_release, "ori": GRASP_ORI,    "gripper": "open"},
-        {"name": "place_lift",          "pos": place_hover,   "ori": GRASP_ORI,    "gripper": "open"},
+        {
+            "pos": pick_hover,
+            "ori": APPROACH_ORI,
+            "gripper": "open",
+        },
+        {
+            "pos": pick_hover,
+            "ori": [180, 0, yaw],
+            "gripper": "open",
+        },
+        {
+            "pos": pick_grasp,
+            "ori": [180, 0, yaw],
+            "gripper": "close",
+        },
+        {
+            "pos": pick_hover,
+            "ori": [180, 0, yaw],
+            "gripper": "close",
+        },
+        {
+            "pos": place_hover,
+            "ori": [180, 0, yaw],
+            "gripper": "close",
+        },
+        {
+            "pos": place_release,
+            "ori": [180, 0, yaw],
+            "gripper": "open",
+        },
+        {
+            "pos": place_hover,
+            "ori": [180, 0, yaw],
+            "gripper": "open",
+        },
     ]
 
     return waypoints
 
 
-def print_waypoints(title, waypoints):
-    print("\n========== {} ==========".format(title))
-    for i, wp in enumerate(waypoints):
-        pos_txt = ["{:.3f}".format(v) for v in wp["pos"]]
-        print("[{}] {} | pos={} ori={} gripper={}".format(
-            i,
-            wp["name"],
-            pos_txt,
-            wp["ori"],
-            wp["gripper"],
-        ))
-    print("=" * (22 + len(title)))
+def print_waypoints(waypoints):
+    print("\n========== FINAL WAYPOINTS ==========")
 
-
-# ──────────────────────────────────────────────────────────────
-# EJECUCIÓN LOCAL
-# ──────────────────────────────────────────────────────────────
-
-def execute_waypoints_daniel(waypoints):
-    limb = get_limb()
-    gripper = get_gripper()
-
-    if limb is None or gripper is None:
-        rospy.logerr("Limb or gripper not available.")
-        return False
-
-    gripper.open()
-    rospy.sleep(0.3)
-
-    ep = limb.endpoint_pose()
-    cur_x = ep["position"].x
-    cur_y = ep["position"].y
-    cur_z_w = ep["position"].z + SAWYER_BASE_Z
-
-    rospy.loginfo(
-        "Current endpoint world-like pose: x=%.3f y=%.3f z=%.3f",
-        cur_x,
-        cur_y,
-        cur_z_w,
-    )
-
-    for i, wp in enumerate(waypoints):
-        name = wp["name"]
-        x, y, z_t = wp["pos"]
-        r, p, ya = wp["ori"]
-
-        rospy.loginfo(
-            "Waypoint %d/%d [%s]: x=%.3f y=%.3f z=%.3f rpy=(%.1f, %.1f, %.1f) gripper=%s",
-            i + 1,
-            len(waypoints),
-            name,
-            x,
-            y,
-            z_t,
-            r,
-            p,
-            ya,
-            wp["gripper"],
+    for index, waypoint in enumerate(waypoints):
+        pos = waypoint["pos"]
+        print(
+            "[{}] pos=[{:.3f}, {:.3f}, {:.3f}] ori={} gripper={}".format(
+                index,
+                pos[0],
+                pos[1],
+                pos[2],
+                waypoint["ori"],
+                waypoint["gripper"],
+            )
         )
 
-        xy_change = abs(x - cur_x) > 0.005 or abs(y - cur_y) > 0.005
-        z_change = abs(z_t - cur_z_w) > 0.005
-
-        if z_change:
-            if xy_change:
-                rospy.loginfo("Moving laterally at current height first...")
-                ok = move_to_pose(x, y, cur_z_w, r, p, ya)
-
-                if not ok:
-                    rospy.logerr("Failed lateral move before waypoint [%s]. Aborting.", name)
-                    return False
-
-            rospy.loginfo("Moving vertically to target z...")
-            ok = move_straight_z(x, y, cur_z_w, z_t, r, p, ya)
-
-            if not ok:
-                rospy.logerr("Failed vertical move at waypoint [%s]. Aborting.", name)
-                return False
-
-        else:
-            ok = move_to_pose(x, y, z_t, r, p, ya)
-
-            if not ok:
-                rospy.logerr("Failed move_to_pose at waypoint [%s]. Aborting.", name)
-                return False
-
-        cur_x, cur_y, cur_z_w = x, y, z_t
-
-        if wp["gripper"] == "open":
-            gripper.open()
-        elif wp["gripper"] == "close":
-            gripper.close()
-
-        rospy.sleep(0.4)
-
-    rospy.loginfo("Daniel waypoint execution complete. Returning to safe pose.")
-    go_to_safe_pose()
-
-    return True
+    print("=====================================")
 
 
 # ──────────────────────────────────────────────────────────────
@@ -450,19 +417,22 @@ def main():
     init_api()
     rospy.sleep(1.0)
 
-    ok = move_to_top_camera_pose()
-    if not ok:
+    if not move_to_top_camera_pose():
         print("No se pudo mover a la pose de cámara.")
         sys.exit(1)
 
     rospy.loginfo("Capturing scene from top camera pose...")
     scene = make_scene()
 
-    rospy.loginfo("Scene captured. Moving back to safe pose before pick/place...")
+    if not scene or not scene.get("objects"):
+        print("No se pudo construir una escena válida.")
+        sys.exit(1)
+
+    rospy.loginfo("Scene captured. Moving to safe pose before pick/place...")
     go_to_safe_pose()
     rospy.sleep(1.0)
 
-    selected_object = ask_object(scene, DEFAULT_OBJECT)
+    selected_object = ask_object(scene)
 
     if selected_object is None:
         print("Saliendo.")
@@ -471,12 +441,6 @@ def main():
     print("\nObjeto seleccionado:", selected_object)
 
     print("\nIndica cuánto quieres mover el objeto en metros.")
-    print("Ejemplos:")
-    print("  dx = 0.15   mueve +15 cm en X")
-    print("  dx = -0.10  mueve -10 cm en X")
-    print("  dy = 0.15   mueve +15 cm en Y")
-    print("  dy = -0.15  mueve -15 cm en Y")
-
     dx = ask_float("Mover en X [0.0]: ", 0.0)
     dy = ask_float("Mover en Y [0.15]: ", 0.15)
 
@@ -487,15 +451,17 @@ def main():
         dy=dy,
     )
 
-    print_waypoints("DANIEL WAYPOINTS", waypoints)
+    print_waypoints(waypoints)
+
+    profile = get_profile(selected_object)
 
     print("\nResumen:")
     print("  Objeto:", selected_object)
     print("  dx:", dx)
     print("  dy:", dy)
-    print("  Gazebo truth:", USE_GAZEBO_TRUTH_FOR_PICK)
-    print("  hover interno:", HOVER_HEIGHT)
-    print("  grasp offset:", GRASP_Z_OFFSET_BY_OBJECT.get(selected_object, 0.0))
+    print("  grasp height ratio:", profile["grasp_height_ratio"])
+    print("  hover interno:", profile["hover_height"])
+    print("  yaw:", profile["yaw"])
 
     confirm = input("\nEjecutar movimiento? [ENTER = sí, q = no]: ").strip().lower()
 
@@ -503,7 +469,7 @@ def main():
         print("Movimiento cancelado.")
         sys.exit(0)
 
-    execute_waypoints_daniel(waypoints)
+    execute_waypoints(waypoints)
 
 
 if __name__ == "__main__":

@@ -1,46 +1,84 @@
 <?xml version="1.0" ?>
-<sdf version="1.5">
+<sdf version="1.6">
   <model name="coke_can">
+    <static>false</static>
+
     <link name="link">
+
+      <!--
+        Stable and graspable coke can.
+
+        Approximate dimensions:
+          diameter = 0.060 m
+          height   = 0.116 m
+
+        The visual mesh remains unchanged.
+        The collision is replaced by a simple cylinder.
+      -->
+
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+
       <inertial>
-        <pose>0 0 0.06 0 0 0</pose>
-        <mass>0.390</mass>
+        <pose>0 0 0.058 0 0 0</pose>
+        <mass>0.25</mass>
+
         <inertia>
-          <ixx>55575</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>55575</iyy>
-          <iyz>0</iyz>
-          <izz>1755</izz>
+          <ixx>0.00034</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+
+          <iyy>0.00034</iyy>
+          <iyz>0.0</iyz>
+
+          <izz>0.00010</izz>
         </inertia>
       </inertial>
-      <collision name="collision">
-        <pose>0.003937 0.0047244 -0.18 0 0 0</pose>
+
+      <velocity_decay>
+        <linear>0.20</linear>
+        <angular>0.25</angular>
+      </velocity_decay>
+
+      <collision name="collision_can">
+        <pose>0 0 0.058 0 0 0</pose>
+
         <geometry>
-          <mesh>
-            <uri>model://coke_can/meshes/coke_can.dae</uri>
-            <scale>0.8 0.8 0.8</scale>
-          </mesh>
+          <cylinder>
+            <radius>0.028</radius>
+            <length>0.116</length>
+          </cylinder>
         </geometry>
+
         <surface>
           <friction>
             <ode>
-              <mu>1000.0</mu>
-              <mu2>1000.0</mu2>
+              <mu>3.0</mu>
+              <mu2>3.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
             </ode>
           </friction>
+
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>100000.0</threshold>
+          </bounce>
+
           <contact>
             <ode>
-              <kp>10000000.0</kp>
-              <kd>1.0</kd>
+              <kp>80000.0</kp>
+              <kd>25.0</kd>
               <min_depth>0.001</min_depth>
-              <max_vel>0.1</max_vel>
+              <max_vel>0.05</max_vel>
             </ode>
           </contact>
         </surface>
       </collision>
+
       <visual name="visual">
         <pose>0.003937 0.0047244 -0.18 0 0 0</pose>
+
         <geometry>
           <mesh>
             <uri>model://coke_can/meshes/coke_can.dae</uri>
@@ -48,6 +86,7 @@
           </mesh>
         </geometry>
       </visual>
+
     </link>
   </model>
 </sdf>

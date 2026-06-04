@@ -1,41 +1,51 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
-  <model name="planta_maceta">
+  <model name="plant">
     <static>false</static>
+
     <link name="base_link">
-      
+
       <inertial>
         <pose>0 0 0.05 0 0 0</pose>
         <mass>0.3</mass>
+
         <inertia>
-          <ixx>0.0004375</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
-          <iyy>0.0004375</iyy> <iyz>0.0</iyz>
+          <ixx>0.0004375</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+
+          <iyy>0.0004375</iyy>
+          <iyz>0.0</iyz>
+
           <izz>0.000375</izz>
         </inertia>
       </inertial>
 
-    <collision name="collision_maceta">
-        <pose>0 0 0 0 0 0</pose> <geometry>
-      <mesh>
-        <uri>model://planta_maceta/meshes/planta.stl</uri>
-        <scale>0.2 0.2 0.19</scale>
+      <collision name="collision_maceta">
+        <pose>0 0 0 0 0 0</pose>
 
-      </mesh>
-    </geometry>
-  </collision>
+        <geometry>
+          <mesh>
+            <uri>model://plant/meshes/planta.stl</uri>
+            <scale>0.2 0.2 0.19</scale>
+          </mesh>
+        </geometry>
+      </collision>
 
       <visual name="visual_planta">
         <pose>0 0 0 0 0 0</pose>
+
         <geometry>
           <mesh>
-            <uri>model://planta_maceta/meshes/planta.stl</uri>
+            <uri>model://plant/meshes/planta.stl</uri>
             <scale>0.2 0.2 0.2</scale>
           </mesh>
         </geometry>
+
         <material>
           <script>
             <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Green</name> 
+            <name>Gazebo/Green</name>
           </script>
         </material>
       </visual>

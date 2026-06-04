@@ -113,7 +113,7 @@ def load_gazebo_models():
         roll=0, pitch=0, yaw=0
     )
 
-    planta_maceta_pose = make_pose(
+    plant_pose = make_pose(
         x=0.85, y=0.00, z=0.78,
         roll=0, pitch=0, yaw=0
     )
@@ -141,7 +141,7 @@ def load_gazebo_models():
     banana_xml = read_model("banana/banana.sdf")
     coke_can_xml = read_model("coke_can/model.sdf")
     bowl_xml = read_model("bowl/model.sdf")
-    planta_maceta_xml = read_model("planta_maceta/model.sdf")
+    plant_xml = read_model("plant/model.sdf")
     sponge_xml = read_model("sponge/model.sdf")
     potatoes_xml = read_model("potatoes/model.sdf")
 
@@ -157,7 +157,7 @@ def load_gazebo_models():
         "banana",
         "coke_can",
         "bowl",
-        "planta_maceta",
+        "plant",
         "sponge",
         "potatoes",
     ]
@@ -183,7 +183,7 @@ def load_gazebo_models():
 
     spawn_sdf_model(spawn_sdf, "banana", banana_xml, banana_pose)
     spawn_sdf_model(spawn_sdf, "strawberry", strawberry_xml, strawberry_pose)
-    spawn_sdf_model(spawn_sdf, "planta_maceta", planta_maceta_xml, planta_maceta_pose)
+    spawn_sdf_model(spawn_sdf, "plant", plant_xml, plant_pose)
 
     spawn_sdf_model(spawn_sdf, "sponge", sponge_xml, sponge_pose)
     spawn_sdf_model(spawn_sdf, "potatoes", potatoes_xml, potatoes_pose)
