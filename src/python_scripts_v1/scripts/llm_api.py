@@ -162,7 +162,7 @@ def init_api(camera_frame="right_hand_camera"):
     _limb = intera_interface.Limb("right")
     _solver = IK(
         IK_BASE_LINK, IK_TIP_LINK,
-        timeout=0.05, epsilon=0.001, solve_type="Speed",
+        timeout=0.05, epsilon=0.001, solve_type="Distance",
     )
     _node_initialized = True
     rospy.loginfo("LLM API initialized.")
