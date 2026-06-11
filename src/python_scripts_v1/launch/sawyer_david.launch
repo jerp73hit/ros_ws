@@ -1,13 +1,19 @@
 <launch>
     <!-- ========================================================= -->
-    <!--  Sawyer Gazebo + Vision Scene Launch                     -->
-    <!--  Workspace: ~/ros_ws_team                                -->
-    <!--  Package: python_scripts_v1                              -->
+    <!-- Sawyer Gazebo + Pick and Place Scene Launch               -->
+    <!-- Package: python_scripts_v1                                -->
+    <!-- Neutral path: repo/models is found relative to package     -->
     <!-- ========================================================= -->
 
-    <!-- Gazebo must know where the custom models are located -->
+    <!-- ========================================================= -->
+    <!-- Custom Gazebo models                                      -->
+    <!-- Expected repository layout:                               -->
+    <!--   repo/                                                   -->
+    <!--   ├── models/                                             -->
+    <!--   └── src/python_scripts_v1                               -->
+    <!-- ========================================================= -->
     <env name="GAZEBO_MODEL_PATH"
-         value="$(env HOME)/ros_ws_team/models:$(optenv GAZEBO_MODEL_PATH)" />
+         value="$(find python_scripts_v1)/../../models:$(optenv GAZEBO_MODEL_PATH)" />
 
     <!-- ========================================================= -->
     <!-- 1. Start Sawyer simulation in Gazebo with electric gripper -->
@@ -17,48 +23,47 @@
     </include>
 
     <!-- ========================================================= -->
-    <!-- 2. Open Gazebo GUI                                       -->
-    <!--    Delay prevents gzclient from opening before gzserver   -->
+    <!-- 2. Open Gazebo GUI                                        -->
+    <!-- Delay prevents gzclient from opening before gzserver       -->
     <!-- ========================================================= -->
     <node pkg="gazebo_ros"
           type="gzclient"
           name="gzclient"
           output="screen"
-          launch-prefix="bash -c 'sleep 5; exec $0 $@'"/>
+          launch-prefix="bash -c 'sleep 8; exec $0 $@'"/>
 
     <!-- ========================================================= -->
-    <!-- 3. Spawn table and objects in Gazebo                      -->
-    <!--    Uses models from ~/ros_ws_team/models                  -->
+    <!-- 3. Spawn table and objects                                -->
+    <!-- The script must locate models using package-relative path  -->
+    <!-- or GAZEBO_MODEL_PATH, not ./models                         -->
     <!-- ========================================================= -->
     <node pkg="python_scripts_v1"
           type="spawn_pick_place_scene.py"
           name="spawn_pick_place_scene"
           output="screen"
           respawn="false"
-          launch-prefix="bash -c 'sleep 15; exec $0 $@'"/>
+          launch-prefix="bash -c 'sleep 18; exec $0 $@'"/>
 
     <!-- ========================================================= -->
     <!-- 4. Send Sawyer to safe initial pose                       -->
-    <!--    Runs after Gazebo and objects are loaded               -->
+    <!-- Give the scene time to spawn before moving the arm         -->
     <!-- ========================================================= -->
     <node pkg="python_scripts_v1"
           type="send_safe_pose.py"
           name="send_safe_pose"
           output="screen"
           respawn="false"
-          launch-prefix="bash -c 'sleep 23; exec $0 $@'"/>
+          launch-prefix="bash -c 'sleep 35; exec $0 $@'"/>
 
     <!-- ========================================================= -->
-    <!-- 5. Optional: move arm to top hand-camera pose             -->
-    <!--    Uncomment this only when you want the robot to move    -->
-    <!--    automatically to the vision/camera observation pose.   -->
+    <!-- 5. Move arm to top hand-camera pose                       -->
+    <!-- Must run after safe pose has fully finished                -->
     <!-- ========================================================= -->
-
     <node pkg="python_scripts_v1"
           type="go_to_top_hand_camera_pos.py"
           name="go_to_top_hand_camera_pos"
           output="screen"
           respawn="false"
-          launch-prefix="bash -c 'sleep 30 ; exec $0 $@'"/>
+          launch-prefix="bash -c 'sleep 70; exec $0 $@'"/>
 
 </launch>

@@ -2,15 +2,17 @@
 
 import os
 import math
+from pathlib import Path
+
 import rospy
+import rospkg
 
 from gazebo_msgs.srv import SpawnModel, DeleteModel
 from geometry_msgs.msg import Pose, Point, Quaternion
 from tf.transformations import quaternion_from_euler
 
 
-# MODEL_PATH = os.path.expanduser("~/ros_ws_team/models")
-MODEL_PATH = os.path.expanduser("./models")
+PACKAGE_NAME = "python_scripts_v1"
 
 
 def rpy_deg_to_quat(roll=0.0, pitch=0.0, yaw=0.0):
@@ -36,10 +38,118 @@ def make_pose(x, y, z, roll=0.0, pitch=0.0, yaw=0.0):
     )
 
 
-def read_model(relative_path):
-    path = os.path.join(MODEL_PATH, relative_path)
+def _candidate_has_required_models(model_path):
+    """
+    Basic validation to avoid selecting the wrong folder.
+    """
+    model_path = Path(model_path)
 
-    if not os.path.exists(path):
+    required_files = [
+        model_path / "cafe_table" / "model.sdf",
+        model_path / "block" / "model.urdf",
+    ]
+
+    return all(path.exists() for path in required_files)
+
+
+def get_model_path():
+    """
+    Locate the shared models folder in a workspace-independent way.
+
+    Priority:
+        1. PICK_PLACE_MODELS_PATH environment variable.
+        2. Any valid folder in GAZEBO_MODEL_PATH.
+        3. Search upward from the ROS package path until finding <repo_root>/models.
+
+    Expected repository layout:
+        <repo_root>/models
+        <repo_root>/src/python_scripts_v1
+
+    This avoids hardcoding paths such as ~/ros_ws_team/models.
+    """
+
+    # ---------------------------------------------------------------------
+    # 1. Explicit override, useful for teammates with unusual layouts.
+    # ---------------------------------------------------------------------
+    env_override = os.environ.get("PICK_PLACE_MODELS_PATH", "").strip()
+
+    if env_override:
+        candidate = Path(env_override).expanduser().resolve()
+
+        if _candidate_has_required_models(candidate):
+            return str(candidate)
+
+        raise FileNotFoundError(
+            "PICK_PLACE_MODELS_PATH is set, but it does not contain the "
+            "required models.\n"
+            "PICK_PLACE_MODELS_PATH={}".format(candidate)
+        )
+
+    # ---------------------------------------------------------------------
+    # 2. Try GAZEBO_MODEL_PATH.
+    # ---------------------------------------------------------------------
+    gazebo_model_path = os.environ.get("GAZEBO_MODEL_PATH", "")
+
+    for raw_candidate in gazebo_model_path.split(":"):
+        if not raw_candidate.strip():
+            continue
+
+        candidate = Path(raw_candidate).expanduser().resolve()
+
+        if _candidate_has_required_models(candidate):
+            return str(candidate)
+
+    # ---------------------------------------------------------------------
+    # 3. Search upward from the ROS package path.
+    # ---------------------------------------------------------------------
+    try:
+        pkg_path = Path(rospkg.RosPack().get_path(PACKAGE_NAME)).resolve()
+    except rospkg.ResourceNotFound:
+        raise RuntimeError(
+            "Could not find ROS package '{}'. Did you source the correct "
+            "workspace?".format(PACKAGE_NAME)
+        )
+
+    # Example:
+    #   pkg_path = <repo_root>/src/python_scripts_v1
+    #   possible parents:
+    #       <repo_root>/src/python_scripts_v1
+    #       <repo_root>/src
+    #       <repo_root>
+    #       ...
+    search_roots = [pkg_path] + list(pkg_path.parents)
+
+    for root in search_roots:
+        candidate = root / "models"
+
+        if _candidate_has_required_models(candidate):
+            return str(candidate.resolve())
+
+    # ---------------------------------------------------------------------
+    # 4. Nothing worked.
+    # ---------------------------------------------------------------------
+    raise FileNotFoundError(
+        "Models folder not found.\n\n"
+        "Tried:\n"
+        "  1. PICK_PLACE_MODELS_PATH\n"
+        "  2. GAZEBO_MODEL_PATH\n"
+        "  3. Searching upward from package path: {}\n\n"
+        "Expected a folder containing at least:\n"
+        "  models/cafe_table/model.sdf\n"
+        "  models/block/model.urdf\n\n"
+        "Recommended repository layout:\n"
+        "  <repo_root>/models\n"
+        "  <repo_root>/src/python_scripts_v1".format(pkg_path)
+    )
+
+
+MODEL_PATH = get_model_path()
+
+
+def read_model(relative_path):
+    path = Path(MODEL_PATH) / relative_path
+
+    if not path.exists():
         raise FileNotFoundError("Model file not found: {}".format(path))
 
     with open(path, "r") as f:
