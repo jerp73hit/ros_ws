@@ -256,6 +256,28 @@ def _compute_ik(limb, solver, x, y, z, roll_deg, pitch_deg, yaw_deg):
         brx=0.1, bry=0.1, brz=0.1,
     )
 
+def wait_and_check_grasp(gripper, timeout=2.0, epsilon=0.0005, min_opening=0.002):
+    start_time = rospy.Time.now()
+    prev_pos = gripper.get_position()
+
+    while (rospy.Time.now() - start_time).to_sec() < timeout:
+        rospy.sleep(0.1)  # Intervalo de muestreo
+        current_pos = gripper.get_position()
+
+        # Si la diferencia entre la posición actual y la anterior es casi cero, se detuvo
+        if abs(current_pos - prev_pos) < epsilon:
+            # Verificar si se detuvo agarrando un objeto o si se cerró por completo (agarró aire)
+            if current_pos > min_opening:
+                rospy.loginfo("Objeto agarrado. Apertura sostenida: {:.4f}m".format(current_pos))
+                return True
+            else:
+                rospy.logwarn("El gripper se cerró por completo sin objeto (apertura: {:.4f}m).".format(current_pos))
+                return False
+
+        prev_pos = current_pos
+
+    rospy.logerr("Se agotó el tiempo esperando que el gripper se cerrara.")
+    return False
 
 def execute_waypoints(waypoints):
     _gripper.open()
@@ -297,13 +319,20 @@ def execute_waypoints(waypoints):
             move_to_pose(x, y, z_t, r, p, ya)
 
         cur_x, cur_y, cur_z_w = x, y, z_t
-
+        
         if wp["gripper"] == "open":
             _gripper.open()
+            rospy.sleep(0.3)
+            
         elif wp["gripper"] == "close":
             _gripper.close()
-        rospy.sleep(0.3)
-
+                    # Monitoreamos la distancia para confirmar el agarre
+            has_object = wait_and_check_grasp(_gripper)
+            if not has_object:
+                 rospy.logerr("¡Fallo al agarrar! Abortando la rutina y soltando.")
+                 _gripper.open() # Soltamos/abrimos por seguridad
+                 rospy.sleep(0.3)
+                 break
     go_to_safe_pose()
 
 
