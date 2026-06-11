@@ -200,13 +200,13 @@ flowchart TD
     SMOVEIT --> URDF
 
     %% ===== Style classes =====
-    classDef ros fill="#e1f5fe",stroke:#0288d1
-    classDef sdk fill="#e8f5e9",stroke:#388e3c
-    classDef script fill="#fff3e0",stroke:#f57c00
-    classDef moveit fill="#f3e5f5",stroke:#7b1fa2
-    classDef sim fill="#fce4ec",stroke:#c62828
-    classDef sns fill="#e0f7fa",stroke:#00695c
-    classDef robot fill="#f9fbe7",stroke:#827717
+    classDef ros fill:#e1f5fe,stroke:#0288d1,color:#000
+    classDef sdk fill:#e8f5e9,stroke:#388e3c,color:#000
+    classDef script fill:#fff3e0,stroke:#f57c00,color:#000
+    classDef moveit fill:#f3e5f5,stroke:#7b1fa2,color:#000
+    classDef sim fill:#fce4ec,stroke:#c62828,color:#000
+    classDef sns fill:#e0f7fa,stroke:#00695c,color:#000
+    classDef robot fill:#f9fbe7,stroke:#827717,color:#000
 
     class ROS_MSG,MOT_MSG ros
     class DATAFLOW,CTRL,IO,IINTERFACE,JTRAJ,MOTIF,MEXAMPLES,MEXTDEV sdk
