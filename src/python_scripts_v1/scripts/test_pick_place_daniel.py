@@ -3,6 +3,8 @@
 import sys
 import subprocess
 import rospy
+import math
+
 
 from llm_api import (
     init_api,
@@ -322,6 +324,91 @@ def compute_grasp_z(scene, object_name):
 
     return max(requested_z, min_z)
 
+def point_in_obb_xy(px, py, center, half_extents, orientation_deg, margin=0.005):
+    """
+    Checks if (px, py) is inside the XY footprint of an OBB (oriented bounding box).
+    
+    `orientation_deg` is the object's yaw in degrees (rotation around Z axis).
+    We transform the point into the object's local frame and do an AABB check there.
+    """
+    # Translate point relative to object center
+    dx = px - center[0]
+    dy = py - center[1]
+
+    # Rotate point into the object's local frame (inverse rotation = negative angle)
+    angle_rad = math.radians(orientation_deg)
+    cos_a = math.cos(-angle_rad)
+    sin_a = math.sin(-angle_rad)
+
+    local_x =  cos_a * dx - sin_a * dy
+    local_y =  sin_a * dx + cos_a * dy
+
+    # AABB check in local frame
+    hx = half_extents[0] + margin
+    hy = half_extents[1] + margin
+
+    return abs(local_x) <= hx and abs(local_y) <= hy
+
+
+def check_waypoints_collisions(scene, object_name, waypoints, exclude_names=None, margin=0.005):
+    objects = scene.get("objects", {})
+    warnings = []
+    excluded = set(exclude_names or [])
+
+    for i, wp in enumerate(waypoints):
+        px, py = wp["pos"][0], wp["pos"][1]
+
+        for name, obj in objects.items():
+            if name == object_name:
+                continue
+            if name in excluded:
+                continue
+
+            center      = obj["center"]
+            half        = obj["half_extents"]
+            orientation = obj.get("orientation", 0.0)
+
+            if point_in_obb_xy(px, py, center, half, orientation, margin=margin):
+                warnings.append(
+                    "Waypoint {} (gripper={}) XY=[{:.3f}, {:.3f}] "
+                    "is inside OBB of '{}'  "
+                    "center=[{:.3f}, {:.3f}] half=[{:.3f}, {:.3f}] ori={:.1f}°".format(
+                        i, wp["gripper"],
+                        px, py,
+                        name,
+                        center[0], center[1],
+                        half[0], half[1],
+                        orientation,
+                    )
+                )
+
+    return warnings
+
+def ask_excluded_objects(scene, object_name):
+    """
+    Ask the user which objects to exclude from collision checking.
+    Returns a list of valid object names (never includes the target object).
+    """
+    available = [n for n in scene.get("objects", {}).keys() if n != object_name]
+
+    if not available:
+        return []
+
+    print("\nObjetos disponibles para excluir de colisiones:", available)
+    raw = input("Excluir objetos (separados por coma, ENTER = ninguno): ").strip()
+
+    if not raw:
+        return []
+
+    excluded = []
+    for token in raw.split(","):
+        name = token.strip()
+        if name in available:
+            excluded.append(name)
+        else:
+            print("  '{}' no reconocido, ignorado.".format(name))
+
+    return excluded
 
 def build_waypoints(scene, object_name, dx, dy, yaw):
     profile = get_profile(object_name)
@@ -391,10 +478,8 @@ def main():
 
         if selected_object == "r":
             new_scene = capture_scene_from_camera()
-
             if new_scene is not None:
                 scene = new_scene
-
             continue
 
         default_object = selected_object
@@ -404,9 +489,15 @@ def main():
         print("\nObjeto seleccionado:", selected_object)
         print("Yaw automático:", round(auto_yaw, 2))
 
-        dx = ask_float("Mover en X [0.0]: ", 0.0)
-        dy = ask_float("Mover en Y [0.15]: ", 0.15)
+        dx  = ask_float("Mover en X [0.0]: ", 0.0)
+        dy  = ask_float("Mover en Y [0.15]: ", 0.15)
         yaw = ask_yaw(auto_yaw)
+
+        # ── Ask for collision exclusions (resets each iteration) ──
+        excluded_objects = ask_excluded_objects(scene, selected_object)
+        if excluded_objects:
+            print("Excluyendo de colisiones:", excluded_objects)
+        # ─────────────────────────────────────────────────────────
 
         waypoints = build_waypoints(
             scene=scene,
@@ -418,11 +509,28 @@ def main():
 
         print_simple_waypoints(waypoints)
 
-        confirm = input("\nEjecutar movimiento? [ENTER = sí, q = no]: ").strip().lower()
+        # ── Collision check ───────────────────────────────────────
+        collision_warnings = check_waypoints_collisions(
+            scene, selected_object, waypoints,
+            exclude_names=excluded_objects,
+            margin=0.005,
+        )
+        if collision_warnings:
+            print("\n⚠  COLLISION WARNINGS:")
+            for w in collision_warnings:
+                print("  •", w)
+            confirm = input(
+                "\nHay colisiones potenciales. ¿Ejecutar de todas formas? "
+                "[ENTER = sí, q = cancelar]: "
+            ).strip().lower()
+        else:
+            print("\n✓ Sin colisiones XY detectadas.")
+            confirm = input("\nEjecutar movimiento? [ENTER = sí, q = no]: ").strip().lower()
+        # ─────────────────────────────────────────────────────────
 
         if confirm == "q":
             print("Movimiento cancelado.")
-            continue
+            continue  # excluded_objects goes out of scope, resets next iteration
 
         execute_waypoints(waypoints)
 
