@@ -3,55 +3,55 @@
   <model name="mustard">
     <link name="link">
       <inertial>
-        <pose>-0.015054 -0.023109 0.075042 0 0 0</pose>
+        <pose>-0.012043 -0.018487 0.060034 0 0 0</pose>
         <mass>0.2</mass>
-        <!-- <inertia> -->
-        <!--   <ixx>0.000326</ixx> -->
-        <!--   <ixy>0</ixy> -->
-        <!--   <ixz>0</ixz> -->
-        <!--   <iyy>0.000652</iyy> -->
-        <!--   <iyz>0</iyz> -->
-        <!--   <izz>0.000000</izz> -->
-        <!-- </inertia> -->
-      <inertia ixx="0.000075" ixy="0.0" ixz="0.0" iyy="0.000075" iyz="0.0" izz="0.000075" />
+        <inertia ixx="0.00042" ixy="0.0" ixz="0.0" iyy="0.00042" iyz="0.0" izz="0.00009" />
       </inertial>
+      
       <visual name="mustard">
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>model://mustard/meshes/textured.dae</uri>
+            <scale>0.8 0.8 0.8</scale>
           </mesh>
         </geometry>
       </visual>
+      
       <collision name="mustard">
         <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>model://mustard/meshes/nontextured.stl</uri>
+            <scale>0.8 0.8 0.8</scale>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
         <surface>
           <bounce>
-            <restitution_coefficient>0.2</restitution_coefficient>
-            <threshold>0</threshold>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>100000.0</threshold>
           </bounce>
           <friction>
             <ode>
-              <mu>1000.0</mu>
-              <mu2>1000.0</mu2>
-            <ode/>
+              <mu>10.0</mu>
+              <mu2>10.0</mu2>
+            </ode>
           </friction>
           <contact>
             <ode>
-              <max_vel>10</max_vel>
+              <kp>100000.0</kp>
+              <kd>100.0</kd>
+              <min_depth>0.001</min_depth>
+              <max_vel>0.1</max_vel>
             </ode>
           </contact>
         </surface>
       </collision>
+      
       <velocity_decay>
-        <linear>0</linear>
-        <angular>0</angular>
+        <linear>0.0</linear>
+        <angular>0.05</angular>
       </velocity_decay>
       <self_collide>0</self_collide>
       <kinematic>0</kinematic>

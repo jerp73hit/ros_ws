@@ -20,51 +20,47 @@
       <self_collide>false</self_collide>
 
       <inertial>
-        <pose>0 0 0.058 0 0 0</pose>
+        <pose>0 0 0.0464 0 0 0</pose>
         <mass>0.25</mass>
 
         <inertia>
-          <ixx>0.00034</ixx>
+          <ixx>0.00021</ixx>
           <ixy>0.0</ixy>
           <ixz>0.0</ixz>
-
-          <iyy>0.00034</iyy>
+          <iyy>0.00021</iyy>
           <iyz>0.0</iyz>
-
-          <izz>0.00010</izz>
+          <izz>0.000063</izz>
         </inertia>
       </inertial>
 
       <velocity_decay>
-        <linear>0.20</linear>
-        <angular>0.25</angular>
+        <linear>0.01</linear>
+        <angular>0.01</angular>
       </velocity_decay>
 
       <collision name="collision_can">
-        <pose>0 0 0.058 0 0 0</pose>
+        <pose>0 0 0.0464 0 0 0</pose>
 
         <geometry>
           <cylinder>
-            <radius>0.028</radius>
-            <length>0.116</length>
+            <radius>0.0224</radius>
+            <length>0.0928</length>
           </cylinder>
         </geometry>
 
         <surface>
           <friction>
             <ode>
-              <mu>3.0</mu>
-              <mu2>3.0</mu2>
+              <mu>1000.0</mu>
+              <mu2>1000.0</mu2>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
             </ode>
           </friction>
-
           <bounce>
             <restitution_coefficient>0.0</restitution_coefficient>
             <threshold>100000.0</threshold>
           </bounce>
-
           <contact>
             <ode>
               <kp>80000.0</kp>
@@ -77,7 +73,7 @@
       </collision>
 
       <visual name="visual">
-        <pose>0.003937 0.0047244 -0.18 0 0 0</pose>
+        <pose>0.00315 0.00378 -0.144 0 0 0</pose>
 
         <geometry>
           <mesh>
