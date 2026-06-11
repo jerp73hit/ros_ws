@@ -9,13 +9,13 @@ You have access to a specific, predefined Python API. You must ONLY use the foll
    Returns a dictionary of the current workspace:
    - `eef_pos`: [x, y, z] (end-effector position in world frame)
    - `eef_ori`: [roll, pitch, yaw] in degrees
+   - `table_z`: Z-height of the table surface (0.755m).
    - `objects`: dict of object_name -> { "center": [x,y,z], "base": [x,y,z], "half_extents": [hx,hy,hz], "orientation": float, "confidence": float, "depth": float }
      - `center`: the projected 3D position of the object. For an object resting on the table, `center[2] = table_z + half_extents[2]`.
      - `base`: the bottom of the object (`base[2] = center[2] - half_extents[2]`).
      - `half_extents`: [half_x, half_y, half_z] — the object's half-dimensions. Total size is 2×half_extents.
      - `orientation`: yaw in degrees. Use this to align the gripper yaw for grasping.
      - `confidence`: detection confidence (0-1). Ignore objects below 0.3.
-   - `table_z`: Z-height of the table surface (0.755m).
 
 2. `execute_waypoints(waypoints: list[dict])`
    Executes a sequence of movements. Each waypoint dict contains:
@@ -43,19 +43,37 @@ Never mix objects or reuse hover coordinates across different objects. Every ind
 - **Placement Hover Coordinate:** `[destination_x, destination_y, placement_hover_z]`
 
 ## Placing Objects (Spatial Prepositions)
-When placing a `picked` object relative to a `reference` object, calculate the exact destination coordinates using these strict mathematical definitions:
+When placing a `picked` object relative to a `reference` object, look up the text preposition and apply the exact vector rules below. Remember the world frame: X is forward/backward, Y is left/right, Z is up/down.
 
-  - **"on top of X"**: 
-    dest_x = X.center[0]
-    dest_y = X.center[1]
-    dest_z = X.center[2] + X.half_extents[2] + picked.half_extents[2]
-  - **"inside X"**: 
-    dest_x = X.center[0]
-    dest_y = X.center[1]
-    dest_z = X.base[2] + picked.half_extents[2]
-  - **"next to X" / "in front of X" / "behind X" / "to the left/right of X"**: 
-    Shift dest_x or dest_y from X.center by exactly 0.08m in the world frame direction specified.
-    dest_z = table_z + picked.half_extents[2]
+First, anchor the placement baseline to the reference object's center:
+base_x = reference["center"][0]
+base_y = reference["center"][1]
+base_z = reference["center"][2]
+
+dest_z = base_z
+
+(X positive is FORWARD) 
+(X negative is BACKWARD)
+(Y positive is LEFT)
+(Y negative is RIGHT)
+
+Now modify the baseline based on the exact preposition requested:
+  - "to the left of X":  dest_x = base_x          ; dest_y = base_y + 0.08 # 
+  - "to the right of X": dest_x = base_x          ; dest_y = base_y - 0.08 # 
+  - "in front of X":     dest_x = base_x + 0.08   ; dest_y = base_y
+  - "behind X":          dest_x = base_x - 0.08   ; dest_y = base_y
+  - "on top of X":       dest_x = base_x          ; dest_y = base_y
+                         dest_z = base_z + reference["half_extents"][2] + picked["half_extents"][2]
+  - "inside X":          dest_x = base_x          ; dest_y = base_y
+                         dest_z = base_z + picked["half_extents"][2]
+
+For all horizontal shifts ("left", "right", "in front", "behind"), always set:
+dest_z = scene["table_z"] + picked["half_extents"][2]
+
+Finally, compute the mandatory destination hover Z using the reference target's highest bound:
+dest_hover_z = max(reference["center"][2] + reference["half_extents"][2], dest_z) + 0.12
+dest_hover = [dest_x, dest_y, dest_hover_z]
+dest_drop = [dest_x, dest_y, dest_z]
 
 ## Object Orientation
 - Always use `roll = 180` and `pitch = 0` for top-down grasping.
@@ -71,6 +89,8 @@ def execute_task():
     # 1. Analyze the scene
     scene = make_scene()
     source = scene["objects"]["block"]
+
+    table_z = scene["table_z"]
     
     # 2. Compute Phase 1: Pickup coordinates
     p_yaw = source["orientation"]

@@ -224,7 +224,7 @@ def make_scene() -> dict:
                 "w_norm": float(d["bbox_norm"][2]),
                 "h_norm": float(d["bbox_norm"][3]),
             },
-            "orientation": 0.0,  # yaw in degrees; will come from camera algorithm
+            "orientation": 90-d.get("orientation", 0.0) if name != "banana" else d.get("orientation", 0.0),
             "confidence": float(d["confidence"]),
             "half_extents": list(half),
         }
@@ -333,9 +333,12 @@ def move_straight_z(x, y, z_start, z_end, roll_deg, pitch_deg, yaw_deg, steps=10
 def adjust_grasp_waypoints(scene, waypoints):
     adjusted = []
     snapped = set()
+    last_picked = None
     for wp in waypoints:
         awp = dict(wp)
-        if awp["gripper"] == "close":
+        gripper = awp["gripper"]
+
+        if gripper == "close":
             x, y, z = awp["pos"]
             best_name = None
             best_obj = None
@@ -358,6 +361,21 @@ def adjust_grasp_waypoints(scene, waypoints):
                         pick_z = table_z + 0.015
                     awp["pos"] = [cx, cy, pick_z]
                     snapped.add(best_name)
+                    last_picked = best_name
+
+        elif gripper == "open" and last_picked is not None:
+            x, y, z = awp["pos"]
+            for name, obj in scene["objects"].items():
+                ox, oy, _ = obj["center"]
+                dist = math.hypot(x - ox, y - oy)
+                if dist < 0.15:
+                    ref_top = obj["center"][2] + obj["half_extents"][2]
+                    picked_half_z = scene["objects"].get(last_picked, {}).get("half_extents", [0, 0, 0.02])[2]
+                    min_z = ref_top + 2.0 * picked_half_z + 0.03
+                    if z < min_z:
+                        awp["pos"] = [x, y, min_z]
+                    break
+
         adjusted.append(awp)
     return adjusted
 
