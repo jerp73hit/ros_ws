@@ -1,4 +1,5 @@
 import math
+import cv2
 import numpy as np
 
 OBJECT_CLASSES = {
@@ -34,6 +35,62 @@ def set_r_fix(matrix):
 
 def get_r_fix():
     return _R_FIX.copy()
+
+
+def _image_dir_to_world_angle(u0, v0, du, dv, depth, cam_pos, cam_quat, K, r_fix_inv=None):
+    from tf.transformations import quaternion_matrix
+
+    if r_fix_inv is None:
+        r_fix_inv = _R_FIX_INV
+
+    p0 = _backproject_to_world(u0, v0, depth, cam_pos, cam_quat, K, r_fix_inv)
+    p1 = _backproject_to_world(u0 + du, v0 + dv, depth, cam_pos, cam_quat, K, r_fix_inv)
+    dx = p1[0] - p0[0]
+    dy = p1[1] - p0[1]
+    return float(np.degrees(np.arctan2(dy, dx)))
+
+
+def estimate_orientation(rgb_frame, u_min, v_min, u_max, v_max,
+                          cam_pos, cam_quat, K, depth_guess=0.5, r_fix_inv=None):
+    h, w = rgb_frame.shape[:2]
+    u_min = max(0, int(u_min)); u_max = min(w, int(u_max))
+    v_min = max(0, int(v_min)); v_max = min(h, int(v_max))
+    if u_max <= u_min + 4 or v_max <= v_min + 4:
+        return 0.0
+
+    u_ctr = (u_min + u_max) / 2.0
+    v_ctr = (v_min + v_max) / 2.0
+
+    crop = rgb_frame[v_min:v_max, u_min:u_max]
+    gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+    blurred = cv2.GaussianBlur(gray, (3, 3), 0)
+    edges = cv2.Canny(blurred, 50, 150)
+
+    ys, xs = np.where(edges > 0)
+    if len(xs) >= 20:
+        pts = np.column_stack((xs.astype(np.float64), ys.astype(np.float64)))
+        mean = pts.mean(axis=0)
+        cov = (pts - mean).T @ (pts - mean)
+        eig_vals, eig_vecs = np.linalg.eig(cov)
+        idx = np.argmax(eig_vals)
+        du, dv = eig_vecs[0, idx], eig_vecs[1, idx]
+    else:
+        # Fallback: use bbox aspect ratio direction
+        bw = u_max - u_min
+        bh = v_max - v_min
+        if bw > bh:
+            du, dv = 1.0, 0.0
+        elif bh > bw:
+            du, dv = 0.0, 1.0
+        else:
+            du, dv = 1.0, 1.0
+
+    if depth_guess is None or depth_guess < 0.1:
+        depth_guess = 0.5
+
+    angle = _image_dir_to_world_angle(u_ctr, v_ctr, du, dv, depth_guess,
+                                      cam_pos, cam_quat, K, r_fix_inv)
+    return angle
 
 
 def _sample_depth_in_bbox(
@@ -133,6 +190,7 @@ def _bbox_to_world(
         "world_base":   world_base,
         "depth":        float(z_optical),
         "depth_source": depth_source,
+        "orientation":  0.0,
         "bbox_norm":    (cx_norm, cy_norm, w_norm, h_norm),
         "bbox_px":      (u_min, v_min, u_max, v_max),
     }
@@ -149,6 +207,8 @@ def get_positions(results, depth_img, K, cam_pos, cam_quat, r_fix_inv=None):
     clss  = boxes.cls.cpu().numpy().astype(int)
     confs = boxes.conf.cpu().numpy()
 
+    rgb = results.orig_img
+
     detections = []
     for (cx, cy, w, h), cid, conf in zip(xywhn, clss, confs):
         if cid not in _ID_TO_CLASS:
@@ -163,6 +223,13 @@ def get_positions(results, depth_img, K, cam_pos, cam_quat, r_fix_inv=None):
             r_fix_inv=r_fix_inv,
         )
         det["confidence"] = float(conf)
+        u_min, v_min, u_max, v_max = det["bbox_px"]
+        det["orientation"] = estimate_orientation(
+            rgb, u_min, v_min, u_max, v_max,
+            cam_pos, cam_quat, K,
+            depth_guess=det.get("depth"),
+            r_fix_inv=r_fix_inv,
+        )
         detections.append(det)
 
     return detections
