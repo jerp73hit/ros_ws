@@ -67,16 +67,16 @@ GRASP_PROFILES = {
     "block": {
         "grasp_height_ratio": 0.50,
         "z_offset": 0.000,
-        "hover_height": 0.15,
+        "hover_height": 0.20,
         "yaw": 0.0,
         "min_tip_clearance": 0.010,
-        "use_detected_orientation": False,
+        "use_detected_orientation": True,
     },
 
     "sponge": {
         "grasp_height_ratio": 0.45,
         "z_offset": 0.000,
-        "hover_height": 0.15,
+        "hover_height": 0.2,
         "yaw": 0.0,
         "min_tip_clearance": 0.008,
         "use_detected_orientation": True,
@@ -85,34 +85,34 @@ GRASP_PROFILES = {
     "potatoes": {
         "grasp_height_ratio": 0.50,
         "z_offset": 0.000,
-        "hover_height": 0.15,
+        "hover_height": 0.2,
         "yaw": 0.0,
         "min_tip_clearance": 0.010,
-        "use_detected_orientation": False,
+        "use_detected_orientation": True,
     },
 
     "strawberry": {
         "grasp_height_ratio": 0.20,
         "z_offset": 0.000,
-        "hover_height": 0.12,
+        "hover_height": 0.2,
         "yaw": 0.0,
         "min_tip_clearance": 0.004,
-        "use_detected_orientation": False,
+        "use_detected_orientation": True,
     },
 
     "coke_can": {
         "grasp_height_ratio": 0.30,
         "z_offset": -0.006,
-        "hover_height": 0.15,
+        "hover_height": 0.2,
         "yaw": 0.0,
         "min_tip_clearance": 0.010,
-        "use_detected_orientation": False,
+        "use_detected_orientation": True,
     },
 
     "mustard": {
         "grasp_height_ratio": 0.45,
         "z_offset": 0.000,
-        "hover_height": 0.17,
+        "hover_height": 0.2,
         "yaw": 90.0,
         "min_tip_clearance": 0.010,
         "use_detected_orientation": True,
@@ -121,7 +121,7 @@ GRASP_PROFILES = {
     "banana": {
         "grasp_height_ratio": 0.45,
         "z_offset": 0.000,
-        "hover_height": 0.12,
+        "hover_height": 0.2,
         "yaw": 90.0,
         "min_tip_clearance": 0.006,
         "use_detected_orientation": True,
@@ -130,19 +130,19 @@ GRASP_PROFILES = {
     "bowl": {
         "grasp_height_ratio": 0.65,
         "z_offset": 0.000,
-        "hover_height": 0.15,
+        "hover_height": 0.2,
         "yaw": 0.0,
         "min_tip_clearance": 0.010,
-        "use_detected_orientation": False,
+        "use_detected_orientation": True,
     },
 
     "plant": {
         "grasp_height_ratio": 0.22,
         "z_offset": 0.000,
-        "hover_height": 0.15,
+        "hover_height": 0.2,
         "yaw": 0.0,
         "min_tip_clearance": 0.010,
-        "use_detected_orientation": False,
+        "use_detected_orientation": True,
     },
 }
 

@@ -37,8 +37,8 @@
 
       <!-- Amortiguamiento moderado -->
       <velocity_decay>
-        <linear>0.25</linear>
-        <angular>0.35</angular>
+        <linear>0.0</linear>
+        <angular>0.0</angular>
       </velocity_decay>
 
       <!-- Base estable, pero no demasiado ancha -->

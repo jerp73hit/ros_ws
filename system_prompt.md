@@ -38,7 +38,7 @@ Never mix objects or reuse hover coordinates across different objects. Every ind
 6. Placement Hover (retreat straight up above destination) -> gripper="open"
 
 ## Collision Avoidance & Hover Mathematics
-- **Hover Z Formula:** For any target position, the safe hover Z is computed strictly relative to the target object's geometry: `hover_z = object_center[2] + object_half_extents[2] + 0.12` (12cm clearance above the top surface).
+- **Hover Z Formula:** For any target position, the safe hover Z is computed strictly relative to the target object's geometry: `hover_z = object_center[2] + object_half_extents[2] + 0.2` (20cm clearance above the top surface).
 - **Pickup Hover Coordinate:** `[source_center[0], source_center[1], pickup_hover_z]`
 - **Placement Hover Coordinate:** `[destination_x, destination_y, placement_hover_z]`
 

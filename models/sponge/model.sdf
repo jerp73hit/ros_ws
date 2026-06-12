@@ -27,8 +27,8 @@
       </inertial>
 
       <velocity_decay>
-        <linear>0.35</linear>
-        <angular>0.45</angular>
+        <linear>0.0</linear>
+        <angular>0.0</angular>
       </velocity_decay>
 
       <collision name="collision_sponge">
