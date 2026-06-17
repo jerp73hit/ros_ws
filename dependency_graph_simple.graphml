@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:y="http://www.yworks.com/xml/graphml">
+  <key id="d0" for="node" yfiles.type="nodegraphics"/>
+  <key id="d1" for="edge" yfiles.type="edgegraphics"/>
+  <graph id="G" edgedefault="directed">
+
+    <!-- NODES -->
+    <node id="run_task">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="36" width="170" x="50" y="50"/>
+          <y:Fill color="#EF4444" transparent="false"/>
+          <y:NodeLabel text="run_task.py (Entry Point)" fontFamily="Arial" fontSize="12" fontStyle="bold" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="sawyer_launch">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="36" width="190" x="350" y="50"/>
+          <y:Fill color="#06B6D4" transparent="false"/>
+          <y:NodeLabel text="sawyer_david.launch" fontFamily="Arial" fontSize="11" fontStyle="bold" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="world_launch">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="190" x="600" y="30"/>
+          <y:Fill color="#06B6D4" transparent="false"/>
+          <y:NodeLabel text="sawyer_world.launch" fontFamily="Arial" fontSize="10" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="spawn_scene">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="210" x="600" y="70"/>
+          <y:Fill color="#06B6D4" transparent="false"/>
+          <y:NodeLabel text="spawn_pick_place_scene.py" fontFamily="Arial" fontSize="10" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="safe_pose">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="190" x="600" y="110"/>
+          <y:Fill color="#06B6D4" transparent="false"/>
+          <y:NodeLabel text="send_safe_pose.py" fontFamily="Arial" fontSize="10" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="scan_pose">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="210" x="600" y="150"/>
+          <y:Fill color="#06B6D4" transparent="false"/>
+          <y:NodeLabel text="go_to_top_hand_camera_pos.py" fontFamily="Arial" fontSize="10" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="intera">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="170" x="860" y="100"/>
+          <y:Fill color="#06B6D4" transparent="false"/>
+          <y:NodeLabel text="intera_interface" fontFamily="Arial" fontSize="10" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="gazebo_msgs">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="160" x="860" y="60"/>
+          <y:Fill color="#06B6D4" transparent="false"/>
+          <y:NodeLabel text="gazebo_msgs" fontFamily="Arial" fontSize="10" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="prompt">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="200" x="50" y="150"/>
+          <y:Fill color="#A855F7" transparent="false"/>
+          <y:NodeLabel text="system_prompt.md" fontFamily="Arial" fontSize="11" fontStyle="bold" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="ollama_client">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="190" x="50" y="200"/>
+          <y:Fill color="#A855F7" transparent="false"/>
+          <y:NodeLabel text="ollama_client.py" fontFamily="Arial" fontSize="11" fontStyle="bold" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="qwen">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="40" width="200" x="350" y="190"/>
+          <y:Fill color="#A855F7" transparent="false"/>
+          <y:NodeLabel text="Qwen2.5-Coder 3B (Ollama)" fontFamily="Arial" fontSize="11" textColor="#FFFFFF"/>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="generated_task">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="200" x="50" y="260"/>
+          <y:Fill color="#A855F7" transparent="false"/>
+          <y:NodeLabel text="generated_task.py (auto)" fontFamily="Arial" fontSize="11" fontStyle="italic" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="llm_api">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="40" width="190" x="350" y="300"/>
+          <y:Fill color="#F97316" transparent="false"/>
+          <y:NodeLabel text="llm_api.py (Engine)" fontFamily="Arial" fontSize="12" fontStyle="bold" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="yolo">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="200" x="600" y="270"/>
+          <y:Fill color="#22C55E" transparent="false"/>
+          <y:NodeLabel text="YOLOv8 (best.pt)" fontFamily="Arial" fontSize="11" fontStyle="bold" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="frame2world">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="190" x="600" y="320"/>
+          <y:Fill color="#22C55E" transparent="false"/>
+          <y:NodeLabel text="frame2world.py" fontFamily="Arial" fontSize="11" fontStyle="bold" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <node id="trac_ik">
+      <data key="d0">
+        <y:ShapeNode>
+          <y:Geometry height="32" width="160" x="600" y="380"/>
+          <y:Fill color="#F97316" transparent="false"/>
+          <y:NodeLabel text="trac_ik_python" fontFamily="Arial" fontSize="11" textColor="#FFFFFF"/>
+          <y:Shape type="roundrectangle"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+
+    <!-- EDGES -->
+    <edge source="run_task" target="scan_pose">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#EF4444" type="line" width="2"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="1. Pre-move" fontFamily="Arial" fontSize="9" textColor="#EF4444"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="run_task" target="prompt">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#EF4444" type="line" width="2"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="2. Load prompt" fontFamily="Arial" fontSize="9" textColor="#EF4444"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="run_task" target="ollama_client">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#EF4444" type="line" width="2"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="3. Send task" fontFamily="Arial" fontSize="9" textColor="#EF4444"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="ollama_client" target="qwen">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#A855F7" type="line" width="2"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="HTTP :11434" fontFamily="Arial" fontSize="9" textColor="#A855F7"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="ollama_client" target="generated_task">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#A855F7" type="dashed" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="4. Write code" fontFamily="Arial" fontSize="9" textColor="#A855F7"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="run_task" target="generated_task">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#EF4444" type="line" width="2"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="5. Import &amp; exec" fontFamily="Arial" fontSize="9" textColor="#EF4444"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="generated_task" target="llm_api">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#A855F7" type="line" width="2"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="execute_task()" fontFamily="Arial" fontSize="10" fontStyle="bold" textColor="#A855F7"/></y:PolyLineEdge></data>
+    </edge>
+
+    <edge source="sawyer_launch" target="world_launch">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#06B6D4" type="line" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="includes" fontFamily="Arial" fontSize="9" textColor="#06B6D4"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="sawyer_launch" target="spawn_scene">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#06B6D4" type="line" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="delayed 18s" fontFamily="Arial" fontSize="9" textColor="#06B6D4"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="sawyer_launch" target="safe_pose">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#06B6D4" type="line" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="delayed 35s" fontFamily="Arial" fontSize="9" textColor="#06B6D4"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="sawyer_launch" target="scan_pose">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#06B6D4" type="line" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="delayed 70s" fontFamily="Arial" fontSize="9" textColor="#06B6D4"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="spawn_scene" target="gazebo_msgs">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#06B6D4" type="line" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="SpawnModel" fontFamily="Arial" fontSize="9" textColor="#06B6D4"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="safe_pose" target="intera">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#06B6D4" type="line" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="joint commands" fontFamily="Arial" fontSize="9" textColor="#06B6D4"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="scan_pose" target="intera">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#06B6D4" type="line" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="joint moves" fontFamily="Arial" fontSize="9" textColor="#06B6D4"/></y:PolyLineEdge></data>
+    </edge>
+
+    <edge source="llm_api" target="yolo">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#22C55E" type="line" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="make_scene()" fontFamily="Arial" fontSize="9" fontStyle="bold" textColor="#22C55E"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="llm_api" target="frame2world">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#22C55E" type="line" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="2D-to-3D" fontFamily="Arial" fontSize="9" textColor="#22C55E"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="llm_api" target="trac_ik">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#F97316" type="line" width="1.5"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="_compute_ik()" fontFamily="Arial" fontSize="9" fontStyle="bold" textColor="#F97316"/></y:PolyLineEdge></data>
+    </edge>
+    <edge source="llm_api" target="intera">
+      <data key="d1"><y:PolyLineEdge><y:LineStyle color="#F97316" type="line" width="2"/><y:Arrows source="none" target="standard"/><y:EdgeLabel text="move + gripper" fontFamily="Arial" fontSize="9" fontStyle="bold" textColor="#F97316"/></y:PolyLineEdge></data>
+    </edge>
+
+  </graph>
+</graphml>

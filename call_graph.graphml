@@ -1,0 +1,1308 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <key for="node" id="d0" yfiles.type="nodegraphics"/>
+  <key for="edge" id="d1" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="Graph">
+    <node id="G:" yfiles.foldertype="group">
+      <data key="d0">
+        <y:ProxyAutoBoundsNode>
+          <y:Realizers active="0">
+            <y:GroupNode>
+              <y:Fill color="#CCCCCC" transparent="false"/>
+              <y:NodeLabel modelName="internal" modelPosition="t" alignment="right"></y:NodeLabel>
+              <y:Shape type="roundrectangle"/>
+            </y:GroupNode>
+          </y:Realizers>
+        </y:ProxyAutoBoundsNode>
+      </data>
+      <graph edgedefault="directed" id="G::">
+        <node id="frame2world">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1060"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>frame2world\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/frame2world.py)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="go_to_top_hand_camera_pos">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1340"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>go_to_top_hand_camera_pos\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/go_to_top_hand_camera_pos.py)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="980"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>llm_api\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="ollama_client">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1100"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>ollama_client\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/ollama_client.py)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="run_task">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1000"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>run_task\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/run_task.py)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="send_safe_pose">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1120"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>send_safe_pose\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/send_safe_pose.py)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="spawn_pick_place_scene">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1280"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>spawn_pick_place_scene\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/spawn_pick_place_scene.py)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="frame2world__OBJECT_CLASSES">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1350"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>OBJECT_CLASSES\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/frame2world.py:5,\nname in frame2world)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="frame2world___backproject_to_world">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1480"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>_backproject_to_world\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/frame2world.py:119,\nfunction in frame2world)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="frame2world___bbox_to_world">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1410"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>_bbox_to_world\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/frame2world.py:137,\nfunction in frame2world)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="frame2world___image_dir_to_world_angle">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1510"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>_image_dir_to_world_angle\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/frame2world.py:40,\nfunction in frame2world)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="frame2world___sample_depth_in_bbox">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1470"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>_sample_depth_in_bbox\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/frame2world.py:96,\nfunction in frame2world)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="frame2world__estimate_orientation">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1460"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>estimate_orientation\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/frame2world.py:53,\nfunction in frame2world)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="frame2world__get_positions">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1400"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>get_positions\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/frame2world.py:199,\nfunction in frame2world)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="frame2world__get_r_fix">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1350"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>get_r_fix\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/frame2world.py:36,\nfunction in frame2world)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="frame2world__set_r_fix">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1350"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>set_r_fix\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/frame2world.py:30,\nfunction in frame2world)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="go_to_top_hand_camera_pos__WAYPOINTS">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1590"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>WAYPOINTS\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/go_to_top_hand_camera_pos.py:18,\nname in go_to_top_hand_camera_pos)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="go_to_top_hand_camera_pos__move_to_waypoints">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1710"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>move_to_waypoints\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/go_to_top_hand_camera_pos.py:50,\nfunction in go_to_top_hand_camera_pos)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api___compute_ik">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1300"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>_compute_ik\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:246,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__adjust_grasp_waypoints">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1410"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>adjust_grasp_waypoints\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:364,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__debug_camera">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1310"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>debug_camera\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:137,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__execute_waypoints">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1360"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>execute_waypoints\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:282,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__get_gripper">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1300"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>get_gripper\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:432,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__get_limb">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1270"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>get_limb\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:427,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__go_to_neutral">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1320"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>go_to_neutral\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:421,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__go_to_safe_pose">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1340"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>go_to_safe_pose\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:414,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__init_api">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1270"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>init_api\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:150,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__make_scene">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1290"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>make_scene\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:171,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__move_straight_z">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1340"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>move_straight_z\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:352,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__move_to_pose">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1310"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>move_to_pose\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:340,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__receiver">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1230"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>receiver\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:56,\nclass in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__wait_and_check_grasp">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1390"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>wait_and_check_grasp\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:259,\nfunction in llm_api)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__receiver____init__">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1330"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>__init__\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:57,\nmethod in llm_api.receiver)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__receiver___cb">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1280"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>_cb\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:87,\nmethod in llm_api.receiver)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__receiver___update_pose">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1380"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>_update_pose\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:102,\nmethod in llm_api.receiver)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="llm_api__receiver__snapshot">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1340"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>snapshot\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/llm_api.py:124,\nmethod in llm_api.receiver)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="ollama_client__OllamaChatClient">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1420"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>OllamaChatClient\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/ollama_client.py:4,\nclass in ollama_client)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="ollama_client__OllamaChatClient____init__">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1520"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>__init__\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/ollama_client.py:5,\nmethod in ollama_client.OllamaChatClient)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="ollama_client__OllamaChatClient__generate_response">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1620"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>generate_response\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/ollama_client.py:20,\nmethod in ollama_client.OllamaChatClient)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="ollama_client__OllamaChatClient__update_system_prompt">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1650"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>update_system_prompt\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/ollama_client.py:17,\nmethod in ollama_client.OllamaChatClient)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="spawn_pick_place_scene___candidate_has_required_models">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1780"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>_candidate_has_required_models\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/spawn_pick_place_scene.py:41,\nfunction in spawn_pick_place_scene)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="spawn_pick_place_scene__delete_if_exists">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1650"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>delete_if_exists\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/spawn_pick_place_scene.py:159,\nfunction in spawn_pick_place_scene)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="spawn_pick_place_scene__get_model_path">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1620"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>get_model_path\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/spawn_pick_place_scene.py:55,\nfunction in spawn_pick_place_scene)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="spawn_pick_place_scene__load_gazebo_models">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1670"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>load_gazebo_models\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/spawn_pick_place_scene.py:180,\nfunction in spawn_pick_place_scene)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="spawn_pick_place_scene__make_pose">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1570"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>make_pose\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/spawn_pick_place_scene.py:31,\nfunction in spawn_pick_place_scene)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="spawn_pick_place_scene__read_model">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1590"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>read_model\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/spawn_pick_place_scene.py:149,\nfunction in spawn_pick_place_scene)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="spawn_pick_place_scene__rpy_deg_to_quat">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1630"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>rpy_deg_to_quat\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/spawn_pick_place_scene.py:18,\nfunction in spawn_pick_place_scene)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="spawn_pick_place_scene__spawn_sdf_model">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1640"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>spawn_sdf_model\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/spawn_pick_place_scene.py:168,\nfunction in spawn_pick_place_scene)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+        <node id="spawn_pick_place_scene__spawn_urdf_model">
+          <data key="d0">
+            <y:ShapeNode>
+              <y:Geometry height="30" width="1650"/>
+              <y:Fill color="#ffffffb2" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel>spawn_urdf_model\n\n(/home/masterchief/distrobox/ros1-home/ros_ws/src/python_scripts_v1/scripts/spawn_pick_place_scene.py:174,\nfunction in spawn_pick_place_scene)</y:NodeLabel>
+              <y:Shape type="ellipse"/>
+            </y:ShapeNode>
+          </data>
+        </node>
+      </graph>
+    </node>
+    <edge id="1" source="frame2world" target="frame2world__OBJECT_CLASSES">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="2" source="frame2world" target="frame2world__OBJECT_CLASSES">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="3" source="frame2world" target="frame2world___backproject_to_world">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="4" source="frame2world" target="frame2world___bbox_to_world">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="5" source="frame2world" target="frame2world___image_dir_to_world_angle">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="6" source="frame2world" target="frame2world___sample_depth_in_bbox">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="7" source="frame2world" target="frame2world__estimate_orientation">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="8" source="frame2world" target="frame2world__get_positions">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="9" source="frame2world" target="frame2world__get_r_fix">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="10" source="frame2world" target="frame2world__set_r_fix">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="11" source="frame2world___bbox_to_world" target="frame2world___backproject_to_world">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="12" source="frame2world___bbox_to_world" target="frame2world___sample_depth_in_bbox">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="13" source="frame2world___image_dir_to_world_angle" target="frame2world___backproject_to_world">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="14" source="frame2world__estimate_orientation" target="frame2world___image_dir_to_world_angle">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="15" source="frame2world__get_positions" target="frame2world___bbox_to_world">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="16" source="frame2world__get_positions" target="frame2world__estimate_orientation">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="17" source="go_to_top_hand_camera_pos" target="go_to_top_hand_camera_pos__WAYPOINTS">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="18" source="go_to_top_hand_camera_pos" target="go_to_top_hand_camera_pos__move_to_waypoints">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="19" source="go_to_top_hand_camera_pos" target="go_to_top_hand_camera_pos__move_to_waypoints">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="20" source="go_to_top_hand_camera_pos__move_to_waypoints" target="go_to_top_hand_camera_pos__WAYPOINTS">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="21" source="llm_api" target="frame2world__OBJECT_CLASSES">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="22" source="llm_api" target="frame2world__get_positions">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="23" source="llm_api" target="llm_api___compute_ik">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="24" source="llm_api" target="llm_api__adjust_grasp_waypoints">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="25" source="llm_api" target="llm_api__debug_camera">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="26" source="llm_api" target="llm_api__execute_waypoints">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="27" source="llm_api" target="llm_api__get_gripper">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="28" source="llm_api" target="llm_api__get_limb">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="29" source="llm_api" target="llm_api__go_to_neutral">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="30" source="llm_api" target="llm_api__go_to_safe_pose">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="31" source="llm_api" target="llm_api__init_api">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="32" source="llm_api" target="llm_api__make_scene">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="33" source="llm_api" target="llm_api__move_straight_z">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="34" source="llm_api" target="llm_api__move_to_pose">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="35" source="llm_api" target="llm_api__receiver">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="36" source="llm_api" target="llm_api__wait_and_check_grasp">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="37" source="llm_api__debug_camera" target="frame2world__get_r_fix">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="38" source="llm_api__debug_camera" target="llm_api__receiver__snapshot">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="39" source="llm_api__execute_waypoints" target="llm_api__go_to_safe_pose">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="40" source="llm_api__execute_waypoints" target="llm_api__move_straight_z">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="41" source="llm_api__execute_waypoints" target="llm_api__move_to_pose">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="42" source="llm_api__execute_waypoints" target="llm_api__wait_and_check_grasp">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="43" source="llm_api__init_api" target="llm_api__receiver">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="44" source="llm_api__init_api" target="llm_api__receiver____init__">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="45" source="llm_api__make_scene" target="frame2world__OBJECT_CLASSES">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="46" source="llm_api__make_scene" target="frame2world__get_positions">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="47" source="llm_api__make_scene" target="llm_api__receiver__snapshot">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="48" source="llm_api__move_straight_z" target="llm_api__move_to_pose">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="49" source="llm_api__move_to_pose" target="llm_api___compute_ik">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="50" source="llm_api__receiver" target="llm_api__receiver____init__">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="51" source="llm_api__receiver" target="llm_api__receiver___cb">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="52" source="llm_api__receiver" target="llm_api__receiver___update_pose">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="53" source="llm_api__receiver" target="llm_api__receiver__snapshot">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="54" source="llm_api__receiver____init__" target="llm_api__receiver___cb">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="55" source="llm_api__receiver___cb" target="llm_api__receiver___update_pose">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="56" source="ollama_client" target="ollama_client__OllamaChatClient">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="57" source="ollama_client__OllamaChatClient" target="ollama_client__OllamaChatClient____init__">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="58" source="ollama_client__OllamaChatClient" target="ollama_client__OllamaChatClient__generate_response">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="59" source="ollama_client__OllamaChatClient" target="ollama_client__OllamaChatClient__update_system_prompt">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="60" source="run_task" target="llm_api__init_api">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="61" source="run_task" target="ollama_client__OllamaChatClient">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="62" source="run_task" target="ollama_client__OllamaChatClient____init__">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="63" source="run_task" target="ollama_client__OllamaChatClient__generate_response">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="64" source="spawn_pick_place_scene" target="spawn_pick_place_scene___candidate_has_required_models">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="65" source="spawn_pick_place_scene" target="spawn_pick_place_scene__delete_if_exists">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="66" source="spawn_pick_place_scene" target="spawn_pick_place_scene__get_model_path">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="67" source="spawn_pick_place_scene" target="spawn_pick_place_scene__get_model_path">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="68" source="spawn_pick_place_scene" target="spawn_pick_place_scene__load_gazebo_models">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="69" source="spawn_pick_place_scene" target="spawn_pick_place_scene__load_gazebo_models">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="70" source="spawn_pick_place_scene" target="spawn_pick_place_scene__make_pose">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="71" source="spawn_pick_place_scene" target="spawn_pick_place_scene__read_model">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="72" source="spawn_pick_place_scene" target="spawn_pick_place_scene__rpy_deg_to_quat">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="73" source="spawn_pick_place_scene" target="spawn_pick_place_scene__spawn_sdf_model">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="74" source="spawn_pick_place_scene" target="spawn_pick_place_scene__spawn_urdf_model">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#838b8b" type="dashed" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="75" source="spawn_pick_place_scene__get_model_path" target="spawn_pick_place_scene___candidate_has_required_models">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="76" source="spawn_pick_place_scene__load_gazebo_models" target="spawn_pick_place_scene__delete_if_exists">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="77" source="spawn_pick_place_scene__load_gazebo_models" target="spawn_pick_place_scene__get_model_path">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="78" source="spawn_pick_place_scene__load_gazebo_models" target="spawn_pick_place_scene__make_pose">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="79" source="spawn_pick_place_scene__load_gazebo_models" target="spawn_pick_place_scene__read_model">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="80" source="spawn_pick_place_scene__load_gazebo_models" target="spawn_pick_place_scene__spawn_sdf_model">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="81" source="spawn_pick_place_scene__load_gazebo_models" target="spawn_pick_place_scene__spawn_urdf_model">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="82" source="spawn_pick_place_scene__make_pose" target="spawn_pick_place_scene__rpy_deg_to_quat">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="83" source="spawn_pick_place_scene__read_model" target="spawn_pick_place_scene__get_model_path">
+      <data key="d1">
+        <y:PolyLineEdge>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="true"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+  </graph>
+</graphml>
