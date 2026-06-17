@@ -13,14 +13,13 @@
   <key for="edge" id="d9" yfiles.type="edgegraphics"/>
   <graph edgedefault="directed" id="G">
     <node id="n0">
-      <data key="d4"/>
       <data key="d5">
         <y:ShapeNode>
           <y:Geometry height="90.0" width="400.0" x="50.0" y="50.0"/>
           <y:Fill color="#F3F4F6" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#9CA3AF" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="81.52055358886719" x="159.2397232055664" xml:space="preserve" y="34.827942848205566">SIMULATION</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Arial" fontSize="10" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="85.71992492675781" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#1F2937" verticalTextPosition="bottom" visible="true" width="258.6486358642578" x="70.6756820678711" xml:space="preserve" y="2.1400375366210938">
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#9CA3AF" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="sides" modelPosition="w" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="81.65254211425781" x="-85.65254211425781" xml:space="preserve" y="34.827942848205566">SIMULATION</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Arial" fontSize="10" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="85.71992492675781" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#1F2937" verticalTextPosition="bottom" visible="true" width="258.209716796875" x="70.8951416015625" xml:space="preserve" y="2.1400375366210938">
             sawyer_david.launch → sawyer_world.launch
             spawn_pick_place_scene: 9 objects (t=18s)
             send_safe_pose → go_to_top_hand_camera_pos
@@ -31,13 +30,12 @@
       </data>
     </node>
     <node id="n1">
-      <data key="d4"/>
       <data key="d5">
         <y:ShapeNode>
           <y:Geometry height="70.0" width="340.0" x="80.0" y="200.0"/>
           <y:Fill color="#E5E7EB" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#6B7280" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="41.87226867675781" x="149.0638656616211" xml:space="preserve" y="24.827942848205566">INPUT</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#6B7280" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="sides" modelPosition="w" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="41.98027038574219" x="-45.98027038574219" xml:space="preserve" y="24.827942848205566">INPUT</y:NodeLabel>
           <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Arial" fontSize="10" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="58.479949951171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#1F2937" verticalTextPosition="bottom" visible="true" width="264.3497314453125" x="37.82513427734375" xml:space="preserve" y="5.7600250244140625">
             run_task.py reads user task string
             Passed to OllamaChatClient.generate_response()
@@ -47,14 +45,13 @@
       </data>
     </node>
     <node id="n2">
-      <data key="d4"/>
       <data key="d5">
         <y:ShapeNode>
           <y:Geometry height="100.0" width="400.0" x="50.0" y="340.0"/>
           <y:Fill color="#D1D5DB" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#4B5563" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="57.01640319824219" x="171.4917984008789" xml:space="preserve" y="39.827942848205566">LLM GEN</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Arial" fontSize="10" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="99.33991241455078" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#1F2937" verticalTextPosition="bottom" visible="true" width="260.0086669921875" x="69.99566650390625" xml:space="preserve" y="0.3300437927246094">
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#4B5563" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="sides" modelPosition="w" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="57.16038513183594" x="-61.16038513183594" xml:space="preserve" y="39.827942848205566">LLM GEN</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Arial" fontSize="10" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="99.33991241455078" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#1F2937" verticalTextPosition="bottom" visible="true" width="259.5697326660156" x="70.21513366699219" xml:space="preserve" y="0.3300437927246094">
             system_prompt.md (117 lines, API contract)
             + user task description
             → Qwen2.5-Coder 3B (Ollama :11434, temp=0.7)
@@ -66,14 +63,13 @@
       </data>
     </node>
     <node id="n3">
-      <data key="d4"/>
       <data key="d5">
         <y:ShapeNode>
           <y:Geometry height="90.0" width="400.0" x="535.0" y="345.0"/>
           <y:Fill color="#F3F4F6" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#9CA3AF" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="78.76052856445312" x="160.61973571777344" xml:space="preserve" y="34.827942848205566">PERCEPTION</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Arial" fontSize="10" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="85.71992492675781" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#1F2937" verticalTextPosition="bottom" visible="true" width="244.86851501464844" x="77.56574249267578" xml:space="preserve" y="2.1400375366210938">
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#9CA3AF" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="sides" modelPosition="e" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="79.00053405761719" x="404.0" xml:space="preserve" y="34.827942848205566">PERCEPTION</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Arial" fontSize="10" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="85.71992492675781" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#1F2937" verticalTextPosition="bottom" visible="true" width="244.42959594726562" x="77.78520202636719" xml:space="preserve" y="2.1400375366210938">
             make_scene() → YOLOv8 (best.pt) detection
             frame2world.py: 2D bbox → 3D world coords
             Camera intrinsics + depth back-projection
@@ -84,13 +80,12 @@
       </data>
     </node>
     <node id="n4">
-      <data key="d4"/>
       <data key="d5">
         <y:ShapeNode>
           <y:Geometry height="100.0" width="400.0" x="535.0" y="495.0"/>
           <y:Fill color="#E5E7EB" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#6B7280" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="55.64836120605469" x="172.17581939697266" xml:space="preserve" y="39.827942848205566">MOTION</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#6B7280" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="sides" modelPosition="e" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="55.7923583984375" x="404.0" xml:space="preserve" y="39.827942848205566">MOTION</y:NodeLabel>
           <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Arial" fontSize="10" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="99.33991241455078" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#1F2937" verticalTextPosition="bottom" visible="true" width="235.8297119140625" x="82.08514404296875" xml:space="preserve" y="0.3300437927246094">
             execute_waypoints() — L-shaped approach
             adjust_grasp_waypoints (pre-grasp offset)
@@ -103,13 +98,12 @@
       </data>
     </node>
     <node id="n5">
-      <data key="d4"/>
       <data key="d5">
         <y:ShapeNode>
           <y:Geometry height="60.0" width="310.0" x="580.0" y="675.0"/>
           <y:Fill color="#D1D5DB" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#4B5563" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="45.760284423828125" x="132.11985778808594" xml:space="preserve" y="19.827942848205566">ROBOT</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#4B5563" fontFamily="Arial" fontSize="12" fontStyle="bold" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="sides" modelPosition="e" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="46.036285400390625" x="314.0" xml:space="preserve" y="19.827942848205566">ROBOT</y:NodeLabel>
           <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Arial" fontSize="10" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="58.479949951171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#1F2937" verticalTextPosition="bottom" visible="true" width="194.55970764160156" x="57.72014617919922" xml:space="preserve" y="0.7600250244140625">
             intera_interface ROS topics
             Joint position + gripper publishers
@@ -119,13 +113,12 @@
       </data>
     </node>
     <node id="n6">
-      <data key="d4"/>
       <data key="d5">
         <y:ShapeNode>
           <y:Geometry height="40.0" width="180.0" x="645.0" y="775.0"/>
           <y:Fill color="#9CA3AF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Arial" fontSize="11" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="48.94566345214844" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="171.58273315429688" x="4.2086334228515625" xml:space="preserve" y="-4.472831726074219">
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Arial" fontSize="11" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="48.94566345214844" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#FFFFFF" verticalTextPosition="bottom" visible="true" width="171.73672485351562" x="4.1316375732421875" xml:space="preserve" y="-4.472831726074219">
             ✓ Pick &amp; Place Complete
           </y:NodeLabel>
           <y:Shape type="ellipse"/>
@@ -133,7 +126,6 @@
       </data>
     </node>
     <edge id="e0" source="n0" target="n1">
-      <data key="d8"/>
       <data key="d9">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -147,7 +139,6 @@
       </data>
     </edge>
     <edge id="e1" source="n1" target="n2">
-      <data key="d8"/>
       <data key="d9">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -161,7 +152,6 @@
       </data>
     </edge>
     <edge id="e2" source="n2" target="n3">
-      <data key="d8"/>
       <data key="d9">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -175,7 +165,6 @@
       </data>
     </edge>
     <edge id="e3" source="n3" target="n4">
-      <data key="d8"/>
       <data key="d9">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -189,7 +178,6 @@
       </data>
     </edge>
     <edge id="e4" source="n4" target="n5">
-      <data key="d8"/>
       <data key="d9">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -203,7 +191,6 @@
       </data>
     </edge>
     <edge id="e5" source="n5" target="n6">
-      <data key="d8"/>
       <data key="d9">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -214,15 +201,14 @@
       </data>
     </edge>
     <edge id="e6" source="n0" target="n3">
-      <data key="d8"/>
       <data key="d9">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
             <y:Point x="735.0" y="95.0"/>
           </y:Path>
-          <y:LineStyle color="#9CA3AF" type="dotted" width="1.0"/>
+          <y:LineStyle color="#9CA3AF" type="line" width="2.0"/>
           <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" backgroundColor="#F3F4F6" distance="2.0" fontFamily="Arial" fontSize="9" fontStyle="plain" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="six_pos" modelPosition="tail" preferredPlacement="anywhere" ratio="0.5" textColor="#4B5563" verticalTextPosition="bottom" visible="true" width="4.0" x="145.04144287109375" y="2.0">
+          <y:EdgeLabel alignment="center" backgroundColor="#000000" distance="2.0" fontFamily="Arial" fontSize="9" fontStyle="plain" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="six_pos" modelPosition="tail" preferredPlacement="anywhere" ratio="0.5" textColor="#4B5563" verticalTextPosition="bottom" visible="true" width="4.0" x="145.04144287109375" y="2.0">
             <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
           </y:EdgeLabel>
           <y:BendStyle smoothed="false"/>
