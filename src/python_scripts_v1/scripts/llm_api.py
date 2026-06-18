@@ -328,6 +328,7 @@ def execute_waypoints(waypoints):
             _gripper.close()
                     # Monitoreamos la distancia para confirmar el agarre
             has_object = wait_and_check_grasp(_gripper)
+            rospy.sleep(0.3)
             if not has_object:
                  rospy.logerr("¡Fallo al agarrar! Abortando la rutina y soltando.")
                  _gripper.open() # Soltamos/abrimos por seguridad

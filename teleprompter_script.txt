@@ -1,0 +1,254 @@
+================================================================================
+                             T E L E P R O M P T E R
+                      Video Script — Zero-Shot Pick-and-Place with Sawyer
+                      Robotics Project 1 — Politecnico di Torino
+                        Total: ~7 min  |  5 parts  |  ~1:24 each
+================================================================================
+
+
+
+
+
+
+================================================================================
+PART 1 — JUN
+SIMULATION ENVIRONMENT & PIPELINE OVERVIEW
+Duración: 0:00 – 1:24
+================================================================================
+
+Traditional robotic manipulation relies on rigid, hard-coded trajectories
+that are tedious to program and fail in dynamic environments.
+
+To solve this, our project implements a zero-shot trajectory generation
+system for the Sawyer robotic manipulator. The core idea comes from two key
+papers: "Language Models as Zero-Shot Trajectory Generators" and
+"Code as Policies". Instead of hard-coding robot behaviors, we use a large
+language model to generate motion code on the fly from natural language
+commands.
+
+Our system runs on ROS1 with the Sawyer robot simulated in Gazebo. The entry
+point is the launch file sawyer_david.launch, which orchestrates the full
+pipeline in five timed stages:
+
+First, gazebo world launch loads the Sawyer URDF model with an electric
+gripper, starts the physics engine, and spawns the robot in a custom world
+with a table and 9 household objects: a block, mustard bottle, coke can,
+banana, strawberry, bowl, plant, sponge, and potatoes.
+
+Second, the Gazebo GUI opens after 8 seconds so we can watch the simulation.
+
+Third, after 18 seconds, the scene spawning script places all objects on the
+table at specific coordinates using Gazebo's spawn service. Each object has
+its own 3D model in SDF or URDF format.
+
+Fourth, after 35 seconds, the safe pose script moves the arm to a retracted
+home position using direct joint commands.
+
+Fifth, after 70 seconds, the scan pose script moves the wrist camera to an
+overhead scanning position, ready for perception.
+
+This timed sequence ensures everything initializes properly before the robot
+starts working.
+
+
+
+
+
+
+
+================================================================================
+PART 2 — SERGIO
+COMPUTER VISION & SCENE PERCEPTION
+Duración: 1:24 – 2:48
+================================================================================
+
+I'm Sergio, and I'll explain the perception pipeline.
+
+Once the robot's arm is in the scan position, the wrist camera — an RGB-D
+sensor mounted on the gripper — captures synchronized color and depth images.
+
+The capture script synchronizes the RGB and depth streams using ROS message
+filters. We subscribe to three topics: the color image, the depth map, and
+the camera calibration info which gives us the intrinsics matrix K. The
+camera pose in the world frame is obtained via TF transforms.
+
+The core perception function is make_scene in llm_api.py. It runs a
+fine-tuned YOLO model on the RGB frame to detect objects. Our custom dataset
+includes 9 classes matching the Gazebo models. The YOLO model outputs
+bounding boxes with class labels and confidence scores.
+
+The key challenge is converting these 2D pixel detections to 3D world
+coordinates. This is done in frame2world.py through a back-projection
+pipeline.
+
+First, we sample depth from the center of each bounding box using the depth
+image.
+
+Second, we back-project the pixel into a 3D ray using the camera intrinsics
+matrix.
+
+Third, we apply a calibration rotation that corrects the Gazebo body frame to
+the ROS optical frame.
+
+Fourth, we rotate into the world frame using the camera's orientation from TF.
+
+Fifth, we add the camera position to get the final world coordinates.
+
+Each object returns its center position, base position, half-extents, and
+orientation. The result is a structured scene dictionary that the LLM can
+understand: the end-effector pose, all detected objects with their 3D
+positions, and the table height. This is the robot's understanding of its
+environment.
+
+
+
+
+
+
+
+================================================================================
+PART 3 — DAVID
+LLM-POWERED CODE GENERATION
+Duración: 2:48 – 4:12
+================================================================================
+
+I'm David, and I'll cover the LLM integration.
+
+The heart of the system is run_task.py. This script is the bridge between
+natural language and robot motion.
+
+Here's the workflow:
+
+First, the system prompt is loaded from system_prompt.md — a detailed
+instruction file that teaches the LLM about our robot API, the world
+coordinate frame, grasping conventions, and the exact function signatures
+it must use.
+
+Second, the user's task is passed as a command-line argument — for example:
+"pick up the block and put it in the bowl".
+
+Third, the prompt is sent to Ollama, which runs Qwen2.5-Coder 3B locally on
+our machine. The LLM generates Python code that defines a single function
+called execute_task.
+
+The OllamaChatClient class sends a POST request to localhost port 11434 with
+the system prompt and user input. It uses a temperature of 0.7 for creativity.
+The response is expected to be raw Python code.
+
+Fourth, the generated code is parsed — stripped of any markdown code fences
+— and written to generated_task.py.
+
+Fifth, the script imports and calls generated_task.execute_task, which runs
+in the ROS context.
+
+The system prompt enforces a strict structure: the LLM must call make_scene to
+get object positions, compute pickup and placement coordinates using specific
+math rules, build a waypoint sequence, pass it through
+adjust_grasp_waypoints for snapping, and finally execute_waypoints for motion.
+
+Key rules in the prompt include: orientation is always roll 180 degrees and
+pitch 0 for a top-down grasp, with yaw aligned to each object's orientation.
+Hover clearance is 20 centimeters above the object's top surface for collision
+avoidance. Spatial prepositions like left of, right of, in front of, behind,
+on top of, and inside are translated to explicit coordinate offsets. And for
+multi-object tasks, each object gets its own complete pick-and-place 6-step
+cycle.
+
+
+
+
+
+
+
+================================================================================
+PART 4 — CADAVID
+MOTION PLANNING & ROBOT CONTROL
+Duración: 4:12 – 5:36
+================================================================================
+
+I'm Cadavid, and I'll explain how the generated code actually moves the robot.
+
+This is where llm_api.py does the heavy lifting. Once the LLM generates a list
+of waypoints, the execute_waypoints function processes them sequentially.
+Each waypoint has a position in xyz, an orientation in roll pitch yaw
+degrees, and a gripper command that is either open or close.
+
+Before execution, adjust_grasp_waypoints refines the waypoints. For each close
+waypoint, it snaps the target to the nearest detected object's center and
+adjusts the Z height to the object's top surface. This compensates for any
+imprecision in the LLM's numerical output.
+
+For motion, we use TRAC-IK — an inverse kinematics solver that computes joint
+angles from Cartesian poses. The compute_ik function in llm_api.py takes the
+target xyz and roll pitch yaw and finds a valid joint configuration for the
+7-degree-of-freedom Sawyer arm. It uses a Distance-based optimization with
+the current joint angles as seeds.
+
+If the Z height changes by more than 5 millimeters, the system splits the
+movement. First, it moves horizontally to the target XY at the current Z for
+safe horizontal transit. Then, it moves straight down along Z in 10 small
+steps — this ensures a vertical approach for grasping, avoiding collisions.
+
+The gripper is controlled via the Intera SDK. When closing, the system
+monitors the gripper position over time. If the gripper stops mid-way, the
+object is grasped — success. If it closes completely with no object, it
+detects a failure, aborts, and releases.
+
+After all waypoints are executed, the arm returns to the safe pose
+automatically. The velocity is scaled to 10 percent of max for cautious,
+repeatable motion, with an 8-second timeout per movement.
+
+
+
+
+
+
+
+================================================================================
+PART 5 — JOSSUA
+INTEGRATION & LIVE DEMONSTRATION
+Duración: 5:36 – 7:00
+================================================================================
+
+I'm Jossua, and I'll show you how everything integrates in practice.
+
+First, we launch the simulation. The Gazebo world loads with Sawyer at the
+center, a cafe table in front, and 9 objects arranged in three rows. The
+back row has mustard, coke can, and bowl. The middle row has banana,
+strawberry, and plant. The front row has sponge, potatoes, and block. The arm
+automatically moves to the scanning position.
+
+Now we give a command like "move the block to the left of the bowl".
+
+The LLM processes this in seconds. Let's trace the flow:
+
+run_task.py first moves the arm to the scan pose if needed. The system prompt
+is loaded — 117 lines of detailed API specifications. The task is sent to
+Qwen2.5-Coder via Ollama.
+
+The LLM generates execute_task code that calls make_scene, detects the block
+and bowl, computes the pickup hover and grasp positions, computes the
+placement coordinate to the left of the bowl, and builds 6 waypoints.
+
+The code is saved to generated_task.py and executed. make_scene captures the
+current frame, runs YOLO, and projects to 3D. adjust_grasp_waypoints snaps
+the grasp coordinate to the actual block position. Then execute_waypoints
+moves the arm through the entire sequence: hover, grasp, hover, move to bowl,
+drop, and retreat.
+
+And there it is — the Sawyer arm picks up the block and moves it to the left
+of the bowl, entirely from a natural language command with no manual
+programming.
+
+Let's try another: "put the banana in the bowl". Again, the LLM generates new
+code specific to this task, computing different grasp coordinates, different
+orientations, and a different placement.
+
+The system handles orientation alignment, collision-free hover heights, and
+even detects grasp failures. This zero-shot approach — inspired by the
+"Language Models as Zero-Shot Trajectory Generators"
+and "Code as Policies" papers — demonstrates that modern LLMs possess enough
+understanding of physics and spatial reasoning to control a robot manipulator
+directly from natural language.
+
+Thank you from our team: Jun, Sergio, David, Cadavid, and Jossua.
