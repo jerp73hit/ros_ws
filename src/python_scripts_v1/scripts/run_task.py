@@ -4,7 +4,6 @@ import sys
 import subprocess
 import importlib
 import rospy
-# from openai_client import OpenAIChatClient
 from ollama_client import OllamaChatClient
 from llm_api import init_api
 
@@ -12,13 +11,11 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 WORKSPACE = os.path.realpath(os.path.join(SCRIPT_DIR, "..", "..", ".."))
 GENERATED_PATH = os.path.join(SCRIPT_DIR, "generated_task.py")
 
-# Move arm to scan pose first (before any ROS node)
 scan_script = os.path.join(SCRIPT_DIR, "go_to_top_hand_camera_pos.py")
 print("[run] Moving to scan pose...", flush=True)
 subprocess.run([sys.executable, scan_script], check=True)
 print("[run] Scan pose reached.", flush=True)
 
-# Read system prompt
 sys_prompt_path = os.path.join(WORKSPACE, "system_prompt.md")
 if not os.path.exists(sys_prompt_path):
     print(f"[run] system_prompt.md not found at {sys_prompt_path}")
@@ -26,45 +23,32 @@ if not os.path.exists(sys_prompt_path):
 with open(sys_prompt_path) as f:
     SYSTEM_PROMPT = f.read()
 
-# Initialise LLM client
-# api_key = os.getenv("OPENAI_API_KEY")
-# if not api_key:
-#     print("[run] OPENAI_API_KEY not set")
-#     sys.exit(1)
-
 client = OllamaChatClient(system_prompt=SYSTEM_PROMPT)
 
-# Get task from user
 if len(sys.argv) > 1:
     user_text = " ".join(sys.argv[1:])
     print(f"[run] Task: {user_text}")
 else:
     user_text = input("Describe the task: ")
 
-# Generate code via LLM
 result = client.generate_response(user_text)
 if result is None:
     print("[run] LLM returned no response")
     sys.exit(1)
 result = result.strip()
 
-# Strip markdown code fences if present
 if result.startswith("```"):
     lines = result.splitlines()
-    # Remove first and last fence lines
     if lines and lines[0].startswith("```"):
-        first = lines.pop(0)
-        # If the fence has a language tag (e.g. ```python), skip it
+        lines.pop(0)
     if lines and lines[-1].strip() == "```":
         lines.pop(-1)
     result = "\n".join(lines).strip()
 
-# Ensure the generated file exists before we write to it
 if not os.path.exists(GENERATED_PATH):
     with open(GENERATED_PATH, "w") as f:
         f.write("def execute_task():\n    pass\n")
 
-# Write the actual generated code
 with open(GENERATED_PATH, "w") as f:
     f.write("from llm_api import make_scene, adjust_grasp_waypoints, execute_waypoints\n\n")
     f.write(result)
@@ -73,18 +57,15 @@ with open(GENERATED_PATH, "w") as f:
 
 print(f"[run] Wrote task to {GENERATED_PATH}")
 
-# Reload the module
 if "generated_task" in sys.modules:
     importlib.reload(sys.modules["generated_task"])
 else:
     import generated_task
 
-# Check that execute_task exists
 if not hasattr(generated_task, "execute_task"):
     print("[run] generated_task.py does not contain execute_task()")
     sys.exit(1)
 
-# Initialise robot and run
 init_api()
 rospy.sleep(1.0)
 
